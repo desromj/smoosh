@@ -1,5 +1,6 @@
 package com.greenbatgames.smoosh.entity;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -52,7 +53,7 @@ public class Platform extends PhysicsObject
     }
 
     @Override
-    public void render(ShapeRenderer renderer)
+    public void renderShapes(ShapeRenderer renderer)
     {
         renderer.setColor(Constants.PLATFORM_COLOR);
         renderer.rect(
@@ -62,6 +63,9 @@ public class Platform extends PhysicsObject
                 this.height
         );
     }
+
+    @Override
+    public void renderSprites(SpriteBatch batch) {}
 
     public boolean isOneWay() { return this.oneWay; }
 }

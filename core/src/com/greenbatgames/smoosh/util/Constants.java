@@ -55,6 +55,8 @@ public class Constants
 
     public static final float SMOOSH_WALK_SPEED = 400.0f;
     public static final float SMOOSH_RUN_SPEED = 900.0f;
+    public static final float SMOOSH_HORIZONTAL_WALK_DAMPEN = 0.8f;
+    public static final float SMOOSH_HORIZONTAL_FALL_DAMPEN = 0.95f;
 
     public static final float SMOOSH_VERTEX_X_SCALE = SMOOSH_RADIUS;
     public static final float SMOOSH_VERTEX_Y_SCALE = SMOOSH_RADIUS * 2.0f;

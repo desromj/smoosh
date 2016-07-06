@@ -10,9 +10,9 @@ public class Enums
     // Animation States for Bugs
     public enum AnimationState
     {
-        IDLE("Idle"),
-        WALKING("Walking"),
-        WALKING_WITH_PROP("Walking - Prop");
+        IDLE("idle"),
+        WALKING("walk"),
+        WALKING_WITH_PROP("walk-with-prop");
 
         private String label;
 

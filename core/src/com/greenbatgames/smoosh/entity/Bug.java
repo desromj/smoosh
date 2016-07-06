@@ -1,5 +1,6 @@
 package com.greenbatgames.smoosh.entity;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.greenbatgames.smoosh.util.Assets;
@@ -12,16 +13,19 @@ import com.greenbatgames.smoosh.util.Enums;
 public abstract class Bug extends PhysicsObject
 {
     protected Assets.SpineAnimationAsset asset;
-    protected Enums.AnimationState animationState;
+    protected Enums.AnimationState animationState, previousState;
     protected boolean grounded;
+    private boolean animationChanged;
     protected float disableCollisionFor;
 
     public Bug(float x, float y, float width, float height, World world, boolean grounded) {
         super(x, y, width, height, world);
         this.grounded = grounded;
+        this.animationChanged = false;
         this.disableCollisionFor = 0.0f;
         this.asset = Assets.instance.makeAsset(this);
         this.animationState = Enums.AnimationState.IDLE;
+        this.previousState = Enums.AnimationState.IDLE;
     }
 
     protected abstract Enums.AnimationState nextAnimationState();
@@ -46,8 +50,24 @@ public abstract class Bug extends PhysicsObject
         // Set what the next animation state should be
         this.animationState = nextAnimationState();
 
+        if (this.animationState != this.previousState)
+            this.animationChanged = true;
+        else
+            this.animationChanged = false;
+
         // Set the last position at the end of the update loop
         this.lastPosition.set(this.position.x, this.position.y);
+    }
+
+    @Override
+    public void renderSprites(SpriteBatch batch)
+    {
+        if (this.animationChanged) {
+            asset.setAnimation(0, this.animationState.getLabel(), true);
+            this.animationChanged = false;
+        }
+
+        asset.render(batch);
     }
 
     /*

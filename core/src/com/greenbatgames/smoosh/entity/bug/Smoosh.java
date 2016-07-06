@@ -1,7 +1,10 @@
 package com.greenbatgames.smoosh.entity.bug;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -18,6 +21,52 @@ public class Smoosh extends Bug
 {
     public Smoosh(float x, float y, float width, float height, World world, boolean grounded) {
         super(x, y, width, height, world, grounded);
+    }
+
+    @Override
+    protected void move()
+    {
+        // Check left/right movement keys for X velocity
+        boolean running = (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT));
+
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            if (running) {
+                this.body.setLinearVelocity(
+                        Constants.SMOOSH_RUN_SPEED / Constants.PTM,
+                        this.body.getLinearVelocity().y
+                );
+            } else {
+                this.body.setLinearVelocity(
+                        Constants.SMOOSH_WALK_SPEED / Constants.PTM,
+                        this.body.getLinearVelocity().y
+                );
+            }
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            if (running) {
+                this.body.setLinearVelocity(
+                        -Constants.SMOOSH_RUN_SPEED / Constants.PTM,
+                        this.body.getLinearVelocity().y
+                );
+            } else {
+                this.body.setLinearVelocity(
+                        -Constants.SMOOSH_WALK_SPEED / Constants.PTM,
+                        this.body.getLinearVelocity().y
+                );
+            }
+        } else {
+            if (!this.grounded)
+            {
+                this.body.setLinearVelocity(
+                        this.body.getLinearVelocity().x * Constants.SMOOSH_HORIZONTAL_FALL_DAMPEN,
+                        this.body.getLinearVelocity().y
+                );
+            } else {
+                this.body.setLinearVelocity(
+                        this.body.getLinearVelocity().x * Constants.SMOOSH_HORIZONTAL_WALK_DAMPEN,
+                        this.body.getLinearVelocity().y
+                );
+            }
+        }
     }
 
     @Override
@@ -72,11 +121,6 @@ public class Smoosh extends Bug
 
     @Override
     public void renderShapes(ShapeRenderer renderer) {
-
-    }
-
-    @Override
-    public void renderSprites(SpriteBatch batch) {
 
     }
 }
