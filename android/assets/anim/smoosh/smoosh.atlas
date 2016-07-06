@@ -1,0 +1,295 @@
+
+smoosh.png
+size: 512,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+sketch
+  rotate: false
+  xy: 2, 2
+  size: 400, 400
+  orig: 400, 400
+  offset: 0, 0
+  index: -1
+
+smoosh2.png
+size: 512,32
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Arms/Bicep
+  rotate: false
+  xy: 2, 2
+  size: 59, 28
+  orig: 59, 28
+  offset: 0, 0
+  index: -1
+Arms/Finger
+  rotate: false
+  xy: 225, 2
+  size: 27, 11
+  orig: 27, 11
+  offset: 0, 0
+  index: -1
+Arms/Finger - Base
+  rotate: true
+  xy: 305, 19
+  size: 11, 16
+  orig: 11, 16
+  offset: 0, 0
+  index: -1
+Arms/Finger - Tip
+  rotate: false
+  xy: 225, 15
+  size: 25, 15
+  orig: 25, 15
+  offset: 0, 0
+  index: -1
+Arms/Forearm
+  rotate: false
+  xy: 63, 7
+  size: 57, 23
+  orig: 57, 23
+  offset: 0, 0
+  index: -1
+Arms/Palm - Back
+  rotate: false
+  xy: 196, 6
+  size: 27, 24
+  orig: 27, 24
+  offset: 0, 0
+  index: -1
+Arms/Palm - Front
+  rotate: false
+  xy: 166, 4
+  size: 28, 26
+  orig: 28, 26
+  offset: 0, 0
+  index: -1
+Arms/ShoulderPad
+  rotate: false
+  xy: 122, 10
+  size: 42, 20
+  orig: 42, 20
+  offset: 0, 0
+  index: -1
+Arms/Thumb
+  rotate: false
+  xy: 252, 18
+  size: 28, 12
+  orig: 28, 12
+  offset: 0, 0
+  index: -1
+Arms/Thumb - Base
+  rotate: false
+  xy: 323, 19
+  size: 15, 11
+  orig: 15, 11
+  offset: 0, 0
+  index: -1
+Arms/Thumb - Tip
+  rotate: false
+  xy: 282, 17
+  size: 21, 13
+  orig: 21, 13
+  offset: 0, 0
+  index: -1
+
+smoosh3.png
+size: 256,64
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Body/Abdomen - Flat
+  rotate: true
+  xy: 109, 38
+  size: 21, 61
+  orig: 21, 61
+  offset: 0, 0
+  index: -1
+Body/Abdomen - Narrow
+  rotate: true
+  xy: 172, 46
+  size: 13, 45
+  orig: 13, 45
+  offset: 0, 0
+  index: -1
+Body/Abdomen - Tip
+  rotate: true
+  xy: 109, 4
+  size: 11, 23
+  orig: 11, 23
+  offset: 0, 0
+  index: -1
+Body/Abdomen - Widen
+  rotate: true
+  xy: 109, 17
+  size: 19, 56
+  orig: 19, 56
+  offset: 0, 0
+  index: -1
+Body/Midriff
+  rotate: false
+  xy: 63, 3
+  size: 44, 56
+  orig: 44, 56
+  offset: 0, 0
+  index: -1
+Body/Neck
+  rotate: false
+  xy: 219, 23
+  size: 31, 36
+  orig: 31, 36
+  offset: 0, 0
+  index: -1
+Body/Torso
+  rotate: false
+  xy: 2, 2
+  size: 59, 57
+  orig: 59, 57
+  offset: 0, 0
+  index: -1
+
+smoosh4.png
+size: 256,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Head/Antenna - Base
+  rotate: true
+  xy: 146, 115
+  size: 11, 48
+  orig: 11, 48
+  offset: 0, 0
+  index: -1
+Head/Antenna - Tip
+  rotate: false
+  xy: 74, 109
+  size: 70, 17
+  orig: 70, 17
+  offset: 0, 0
+  index: -1
+Head/Eye White
+  rotate: false
+  xy: 74, 64
+  size: 39, 43
+  orig: 39, 43
+  offset: 0, 0
+  index: -1
+Head/Eyebrow
+  rotate: false
+  xy: 2, 2
+  size: 29, 29
+  orig: 29, 29
+  offset: 0, 0
+  index: -1
+Head/Eyelash - Bottom
+  rotate: false
+  xy: 33, 7
+  size: 28, 24
+  orig: 28, 24
+  offset: 0, 0
+  index: -1
+Head/Eyelash - Top
+  rotate: false
+  xy: 151, 86
+  size: 23, 27
+  orig: 23, 27
+  offset: 0, 0
+  index: -1
+Head/Head
+  rotate: false
+  xy: 2, 62
+  size: 70, 64
+  orig: 70, 64
+  offset: 0, 0
+  index: -1
+Head/Jaw
+  rotate: false
+  xy: 2, 33
+  size: 67, 27
+  orig: 67, 27
+  offset: 0, 0
+  index: -1
+Head/Nose
+  rotate: true
+  xy: 115, 69
+  size: 38, 34
+  orig: 38, 34
+  offset: 0, 0
+  index: -1
+Head/Pupil
+  rotate: true
+  xy: 196, 116
+  size: 10, 18
+  orig: 10, 18
+  offset: 0, 0
+  index: -1
+
+smoosh5.png
+size: 256,64
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Legs/Calf
+  rotate: true
+  xy: 65, 30
+  size: 31, 64
+  orig: 31, 64
+  offset: 0, 0
+  index: -1
+Legs/Heel
+  rotate: false
+  xy: 180, 37
+  size: 50, 24
+  orig: 50, 24
+  offset: 0, 0
+  index: -1
+Legs/Thigh - Lower
+  rotate: true
+  xy: 131, 28
+  size: 33, 47
+  orig: 33, 47
+  offset: 0, 0
+  index: -1
+Legs/Thigh - Upper
+  rotate: true
+  xy: 2, 21
+  size: 40, 61
+  orig: 40, 61
+  offset: 0, 0
+  index: -1
+Legs/Toes
+  rotate: false
+  xy: 65, 2
+  size: 44, 26
+  orig: 44, 26
+  offset: 0, 0
+  index: -1
+
+smoosh6.png
+size: 256,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+Props/Match
+  rotate: true
+  xy: 105, 97
+  size: 23, 133
+  orig: 23, 133
+  offset: 0, 0
+  index: -1
+Props/Match Flame
+  rotate: false
+  xy: 105, 30
+  size: 41, 65
+  orig: 41, 65
+  offset: 0, 0
+  index: -1
+Props/Match Glow
+  rotate: true
+  xy: 2, 2
+  size: 118, 101
+  orig: 118, 101
+  offset: 0, 0
+  index: -1

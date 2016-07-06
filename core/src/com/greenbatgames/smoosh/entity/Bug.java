@@ -1,0 +1,62 @@
+package com.greenbatgames.smoosh.entity;
+
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
+import com.greenbatgames.smoosh.util.Assets;
+import com.greenbatgames.smoosh.util.Constants;
+import com.greenbatgames.smoosh.util.Enums;
+
+/**
+ * Created by Quiv on 06-07-2016.
+ */
+public abstract class Bug extends PhysicsObject
+{
+    protected Assets.SpineAnimationAsset asset;
+    protected Enums.AnimationState animationState;
+    protected boolean grounded;
+    protected float disableCollisionFor;
+
+    public Bug(float x, float y, float width, float height, World world, boolean grounded) {
+        super(x, y, width, height, world);
+        this.grounded = grounded;
+        this.disableCollisionFor = 0.0f;
+        this.asset = Assets.instance.makeAsset(this);
+        this.animationState = Enums.AnimationState.IDLE;
+    }
+
+    protected abstract Enums.AnimationState nextAnimationState();
+    protected abstract void move();
+
+    public void update(float delta)
+    {
+        // First cling position to the physics body
+        this.position.set(
+                this.body.getPosition().x * Constants.PTM,
+                this.body.getPosition().y * Constants.PTM
+        );
+
+        this.disableCollisionFor -= delta;
+
+        // Idle/Walking/Running movement controls
+        this.move();
+
+        // Ensure our dynamic bodies are always awake and ready to be interacted with
+        this.body.setAwake(true);
+
+        // Set what the next animation state should be
+        this.animationState = nextAnimationState();
+
+        // Set the last position at the end of the update loop
+        this.lastPosition.set(this.position.x, this.position.y);
+    }
+
+    /*
+        Getters and Setters
+     */
+    public Vector2 getPosition() { return this.position; }
+
+    public boolean collisionDisabled() { return this.disableCollisionFor > 0f; }
+    public void land() {
+        this.grounded = true;
+    }
+}

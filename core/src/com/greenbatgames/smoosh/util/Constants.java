@@ -1,0 +1,78 @@
+package com.greenbatgames.smoosh.util;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Vector2;
+
+/**
+ * Created by Quiv on 06-07-2016.
+ */
+public class Constants
+{
+    private Constants() {}
+
+    /*
+        World Aspect Ratio
+     */
+    public static final float WORLD_WIDTH = 800f;
+    public static final float WORLD_HEIGHT = WORLD_WIDTH * 3f / 4f;
+
+    /*
+        Physics World Values
+     */
+
+    // PIXELS_TO_METRES: We are working with bugs as main characters: 1000 pixels = 1 metre
+    public static final float PTM = 0.001f;
+    public static final float WOBBLE_ROOM = WORLD_WIDTH / 16000f;
+
+    /*
+        Animation Helper Values
+     */
+    public static final float BUG_IDLE_SPEED_THRESHOLD = 25f;
+
+    /*
+        Camera Controls
+     */
+    public static final float CHASE_CAM_MOVE_SPEED = WORLD_WIDTH * 2.0f;
+    public static final float CHASE_CAM_X_LEEWAY = WORLD_WIDTH / 4f;
+    public static final float CHASE_CAM_Y_LEEWAY = WORLD_WIDTH / 10f;
+
+    /*
+        Platform Values
+     */
+    public static final float PLATFORM_EDGE_LEEWAY = WORLD_WIDTH / 60.0f;
+    public static final float PLATFORM_COLLISION_LEEWAY = WORLD_WIDTH / 960.0f;
+
+    /*
+        Bug Values
+     */
+
+    // Smoosh
+
+    // Density values, in kg/m^3 (human average is 985, water is 1020, wood about 650, but varies)
+    public static final float SMOOSH_DENSITY = 400.0f;
+
+    public static final float SMOOSH_RADIUS = WORLD_WIDTH / 42.0f;
+
+    public static final float SMOOSH_WALK_SPEED = 400.0f;
+    public static final float SMOOSH_RUN_SPEED = 900.0f;
+
+    public static final float SMOOSH_VERTEX_X_SCALE = SMOOSH_RADIUS;
+    public static final float SMOOSH_VERTEX_Y_SCALE = SMOOSH_RADIUS * 2.0f;
+
+    public static final Vector2[] SMOOSH_VERTICIES = new Vector2[] {
+            new Vector2(0.33f * SMOOSH_VERTEX_X_SCALE / PTM, 1.00f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(0.90f * SMOOSH_VERTEX_X_SCALE / PTM, 0.67f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(-0.33f * SMOOSH_VERTEX_X_SCALE / PTM, 1.00f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(-0.90f * SMOOSH_VERTEX_X_SCALE / PTM, 0.67f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(-0.90f * SMOOSH_VERTEX_X_SCALE / PTM, -0.67f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(-0.33f * SMOOSH_VERTEX_X_SCALE / PTM, -1.00f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(0.33f * SMOOSH_VERTEX_X_SCALE / PTM, -1.00f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(0.90f * SMOOSH_VERTEX_X_SCALE / PTM, -0.67f * SMOOSH_VERTEX_Y_SCALE / PTM)
+    };
+
+    /*
+        Platform Game Object Values
+     */
+    public static final Color PLATFORM_COLOR = Color.BLUE;
+
+}
