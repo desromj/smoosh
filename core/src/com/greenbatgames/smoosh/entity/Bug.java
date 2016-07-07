@@ -16,14 +16,17 @@ public abstract class Bug extends PhysicsObject
 {
     protected Assets.SpineAnimationAsset asset;
     protected Enums.AnimationState animationState, previousState;
-    protected boolean grounded;
+    protected boolean grounded, jumped;
     private boolean animationChanged;
+    protected boolean facingRight;
     protected float disableCollisionFor;
 
     public Bug(float x, float y, float width, float height, World world, boolean grounded) {
         super(x, y, width, height, world);
         this.grounded = grounded;
+        this.jumped = true;
         this.animationChanged = false;
+        this.facingRight = true;
         this.disableCollisionFor = 0.0f;
         this.asset = Assets.instance.makeAsset(this);
         this.animationState = Enums.AnimationState.IDLE;
@@ -61,8 +64,15 @@ public abstract class Bug extends PhysicsObject
         else
             this.animationChanged = false;
 
+        this.previousState = this.animationState;
+
         // Set the last position at the end of the update loop
         this.lastPosition.set(this.position.x, this.position.y);
+
+        // Cling the skeleton to the position of the body
+        this.asset.skeleton.setPosition(
+                this.getPosition().x,
+                this.getPosition().y - this.getHeight() / 2.0f);
     }
 
 
@@ -75,19 +85,27 @@ public abstract class Bug extends PhysicsObject
             this.animationChanged = false;
         }
 
+        this.asset.skeleton.setFlipX(!this.facingRight);
         asset.render(batch);
     }
 
 
 
-    public void land() {
+    public void land()
+    {
         this.grounded = true;
+        this.jumped = false;
     }
 
 
 
     public void jump()
     {
+        if (this.jumped)
+            return;
+
+        this.jumped = true;
+
         if (this.grounded && Gdx.input.isKeyPressed(Input.Keys.DOWN))
         {
             this.disableCollisionFor = Constants.DISABLE_COLLISION_FOR_PLATFORM;

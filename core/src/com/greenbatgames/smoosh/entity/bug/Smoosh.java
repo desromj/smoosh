@@ -34,8 +34,8 @@ public class Smoosh extends Bug
         super(
                 x,
                 y,
-                Constants.SMOOSH_RADIUS * 1.5f,
-                Constants.SMOOSH_RADIUS * 4.0f,
+                Constants.SMOOSH_RADIUS * 2.0f,
+                Constants.SMOOSH_RADIUS * 8.0f,
                 world,
                 false);
         this.spawnPosition = new Vector2();
@@ -90,6 +90,9 @@ public class Smoosh extends Bug
                         this.body.getLinearVelocity().y
                 );
             }
+
+            this.facingRight = true;
+
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             if (running) {
                 this.body.setLinearVelocity(
@@ -102,6 +105,9 @@ public class Smoosh extends Bug
                         this.body.getLinearVelocity().y
                 );
             }
+
+            this.facingRight = false;
+
         } else {
             if (!this.grounded)
             {
@@ -162,7 +168,7 @@ public class Smoosh extends Bug
         float alpha = (this.carryingProp) ? 1f : 0f;
 
         Slot slot = this.asset.skeleton.findSlot("prop");
-        slot.getData().getColor().set(1f, 1f, 1f, alpha);
+
 
         // Then get the necessary animation state
         if (this.grounded)
