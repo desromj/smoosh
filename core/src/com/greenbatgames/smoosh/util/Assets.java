@@ -108,12 +108,12 @@ public class Assets implements Disposable, AssetErrorListener
             skeletonRendererDebug.setBoundingBoxes(false);
             skeletonRendererDebug.setRegionAttachments(false);
 
-            atlas = new TextureAtlas(Gdx.files.internal("anim.smoosh/smoosh.atlas"));
+            atlas = new TextureAtlas(Gdx.files.internal("anim/smoosh/smoosh.atlas"));
             SkeletonJson json = new SkeletonJson(atlas);        // load stateless skeleton JSON data
             json.setScale(0.4f);                                // set skeleton scale from Spine
 
             // Read the JSON data and create the skeleton
-            SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal("anim.smoosh/skeleton.json"));
+            SkeletonData skeletonData = json.readSkeletonData(Gdx.files.internal("anim/smoosh/skeleton.json"));
             skeleton = new Skeleton(skeletonData);
 
             // init animation

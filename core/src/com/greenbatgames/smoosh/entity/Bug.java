@@ -1,5 +1,7 @@
 package com.greenbatgames.smoosh.entity;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -28,8 +30,12 @@ public abstract class Bug extends PhysicsObject
         this.previousState = Enums.AnimationState.IDLE;
     }
 
+
+
     protected abstract Enums.AnimationState nextAnimationState();
     protected abstract void move();
+
+
 
     public void update(float delta)
     {
@@ -59,6 +65,8 @@ public abstract class Bug extends PhysicsObject
         this.lastPosition.set(this.position.x, this.position.y);
     }
 
+
+
     @Override
     public void renderSprites(SpriteBatch batch)
     {
@@ -70,13 +78,32 @@ public abstract class Bug extends PhysicsObject
         asset.render(batch);
     }
 
+
+
+    public void land() {
+        this.grounded = true;
+    }
+
+
+
+    public void jump()
+    {
+        if (this.grounded && Gdx.input.isKeyPressed(Input.Keys.DOWN))
+        {
+            this.disableCollisionFor = Constants.DISABLE_COLLISION_FOR_PLATFORM;
+            return;
+        }
+
+        this.body.applyForceToCenter(0f, Constants.SMOOSH_JUMP_IMPULSE, true);
+    }
+
+
+
     /*
         Getters and Setters
      */
     public Vector2 getPosition() { return this.position; }
+    public Vector2 getLastPosition() { return this.lastPosition; }
 
     public boolean collisionDisabled() { return this.disableCollisionFor > 0f; }
-    public void land() {
-        this.grounded = true;
-    }
 }

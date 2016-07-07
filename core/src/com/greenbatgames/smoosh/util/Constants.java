@@ -16,13 +16,23 @@ public class Constants
     public static final float WORLD_WIDTH = 800f;
     public static final float WORLD_HEIGHT = WORLD_WIDTH * 3f / 4f;
 
+    public static final Color BG_COLOR = Color.SKY;
+
     /*
         Physics World Values
      */
 
+    public static final float GRAVITY = -9.81f;
+
     // PIXELS_TO_METRES: We are working with bugs as main characters: 1000 pixels = 1 metre
     public static final float PTM = 0.001f;
     public static final float WOBBLE_ROOM = WORLD_WIDTH / 16000f;
+
+    public static final float DISABLE_COLLISION_FOR_PLATFORM = 0.25f;
+
+    public static final float PHYSICS_STEP_FREQ = 1f / 60f;
+    public static final int PHYSICS_VEL_ITERATIONS = 6;
+    public static final int PHYSICS_POS_ITERATIONS = 6;
 
     /*
         Animation Helper Values
@@ -50,6 +60,7 @@ public class Constants
 
     // Density values, in kg/m^3 (human average is 985, water is 1020, wood about 650, but varies)
     public static final float SMOOSH_DENSITY = 400.0f;
+    public static final float SMOOSH_JUMP_IMPULSE = 500.0f * SMOOSH_DENSITY;
 
     public static final float SMOOSH_RADIUS = WORLD_WIDTH / 42.0f;
 

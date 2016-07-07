@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -14,14 +15,62 @@ import com.greenbatgames.smoosh.entity.Bug;
 import com.greenbatgames.smoosh.util.Constants;
 import com.greenbatgames.smoosh.util.Enums;
 
+import spine.Bone;
+import spine.Slot;
+
 /**
  * Created by Quiv on 06-07-2016.
  */
 public class Smoosh extends Bug
 {
-    public Smoosh(float x, float y, float width, float height, World world, boolean grounded) {
-        super(x, y, width, height, world, grounded);
+    Vector2 spawnPosition;
+    boolean carryingProp;
+
+
+
+    public Smoosh(Vector2 spawn, World world) { this(spawn.x, spawn.y, world); }
+
+    public Smoosh(float x, float y, World world) {
+        super(
+                x,
+                y,
+                Constants.SMOOSH_RADIUS * 1.5f,
+                Constants.SMOOSH_RADIUS * 4.0f,
+                world,
+                false);
+        this.spawnPosition = new Vector2();
+        init();
     }
+
+
+
+    public void init()
+    {
+        this.body.setLinearVelocity(0f, 0f);
+
+        this.getPosition().set(this.spawnPosition.x, this.spawnPosition.y);
+        this.getLastPosition().set(this.spawnPosition.x, this.spawnPosition.y);
+
+        // TODO: Change this to fall/jump when complete
+        this.animationState = Enums.AnimationState.IDLE;
+        this.grounded = false;
+        this.disableCollisionFor = 0.0f;
+        this.carryingProp = false;
+    }
+
+
+
+    @Override
+    public void update(float delta)
+    {
+        super.update(delta);
+
+        // Switch the prop carrying method on/off with the E key
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E))
+            this.carryingProp = !this.carryingProp;
+    }
+
+
 
     @Override
     protected void move()
@@ -69,6 +118,8 @@ public class Smoosh extends Bug
         }
     }
 
+
+
     @Override
     protected void initPhysics(World world) {
         BodyDef bodyDef = new BodyDef();
@@ -96,6 +147,8 @@ public class Smoosh extends Bug
         shape.dispose();
     }
 
+
+
     /**
      * Logic to determine what the next animation state should be set
      * to, based on velocity and boolean flags grounded and flapping
@@ -105,10 +158,21 @@ public class Smoosh extends Bug
     @Override
     protected Enums.AnimationState nextAnimationState()
     {
+        // Enable prop visibility if we are carrying something
+        float alpha = (this.carryingProp) ? 1f : 0f;
+
+        Slot slot = this.asset.skeleton.findSlot("prop");
+        slot.getData().getColor().set(1f, 1f, 1f, alpha);
+
+        // Then get the necessary animation state
         if (this.grounded)
         {
-            if (Math.abs(this.getBody().getLinearVelocity().x * Constants.PTM) > Constants.BUG_IDLE_SPEED_THRESHOLD)
-                return Enums.AnimationState.WALKING;
+            if (Math.abs(this.getBody().getLinearVelocity().x * Constants.PTM) > Constants.BUG_IDLE_SPEED_THRESHOLD) {
+                if (this.carryingProp)
+                    return Enums.AnimationState.WALKING_WITH_PROP;
+                else
+                    return Enums.AnimationState.WALKING;
+            }
             else
                 return Enums.AnimationState.IDLE;
         }
@@ -119,8 +183,8 @@ public class Smoosh extends Bug
         }
     }
 
-    @Override
-    public void renderShapes(ShapeRenderer renderer) {
 
-    }
+
+    @Override
+    public void renderShapes(ShapeRenderer renderer) {}
 }
