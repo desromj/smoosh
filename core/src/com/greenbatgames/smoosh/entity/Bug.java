@@ -5,6 +5,8 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
+import com.greenbatgames.smoosh.util.AnimationBlend;
 import com.greenbatgames.smoosh.util.Assets;
 import com.greenbatgames.smoosh.util.Constants;
 import com.greenbatgames.smoosh.util.Enums;
@@ -36,6 +38,7 @@ public abstract class Bug extends PhysicsObject
 
 
     protected abstract Enums.AnimationState nextAnimationState();
+    public abstract AnimationBlend [] getBlends();
     protected abstract void move();
 
 

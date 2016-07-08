@@ -54,7 +54,7 @@ public class Assets implements Disposable, AssetErrorListener
 
     public SpineAnimationAsset makeAsset(Bug bug) throws NotImplementedException
     {
-        if (bug instanceof Smoosh)      return new SmooshAssets();
+        if (bug instanceof Smoosh)      return new SmooshAssets(bug);
         else                            throw new NotImplementedException();
     }
 
@@ -69,11 +69,14 @@ public class Assets implements Disposable, AssetErrorListener
         public AnimationState animationState;
         public Skeleton skeleton;
 
+        protected Bug bug;
+
         // All subclasses must initialize all required Spine classes above
         public abstract void initSpine();
 
-        public SpineAnimationAsset()
+        public SpineAnimationAsset(Bug bug)
         {
+            this.bug = bug;
             initSpine();
         }
 
@@ -98,6 +101,8 @@ public class Assets implements Disposable, AssetErrorListener
      */
     private final class SmooshAssets extends SpineAnimationAsset
     {
+        public SmooshAssets(Bug bug) { super(bug); }
+
         @Override
         public void initSpine()
         {
@@ -119,6 +124,14 @@ public class Assets implements Disposable, AssetErrorListener
             // init animation
             AnimationStateData stateData = new AnimationStateData(skeletonData);
             animationState = new AnimationState(stateData);
+
+            // Interpolations
+            AnimationStateData animationStateData = animationState.getData();
+
+            for (AnimationBlend blend: this.bug.getBlends())
+                animationStateData.setMix(blend.getFrom(), blend.getTo(), blend.getDuration());
+
+            // Set default animation
             animationState.setAnimation(0, "idle", true);
         }
     }
