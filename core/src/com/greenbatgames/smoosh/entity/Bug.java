@@ -124,4 +124,5 @@ public abstract class Bug extends PhysicsObject
     public Vector2 getLastPosition() { return this.lastPosition; }
 
     public boolean collisionDisabled() { return this.disableCollisionFor > 0f; }
+    public final void refreshAnimationState() { this.animationChanged = true; }
 }

@@ -66,8 +66,10 @@ public class Smoosh extends Bug
         super.update(delta);
 
         // Switch the prop carrying method on/off with the E key
-        if (Gdx.input.isKeyJustPressed(Input.Keys.E))
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             this.carryingProp = !this.carryingProp;
+            this.refreshAnimationState();
+        }
     }
 
 
@@ -164,12 +166,6 @@ public class Smoosh extends Bug
     @Override
     protected Enums.AnimationState nextAnimationState()
     {
-        // Enable prop visibility if we are carrying something
-        float alpha = (this.carryingProp) ? 1f : 0f;
-
-        Slot slot = this.asset.skeleton.findSlot("prop");
-
-
         // Then get the necessary animation state
         if (this.grounded)
         {
@@ -179,8 +175,12 @@ public class Smoosh extends Bug
                 else
                     return Enums.AnimationState.WALKING;
             }
-            else
-                return Enums.AnimationState.IDLE;
+            else {
+                if (this.carryingProp)
+                    return Enums.AnimationState.IDLE_WITH_PROP;
+                else
+                    return Enums.AnimationState.IDLE;
+            }
         }
         else
         {

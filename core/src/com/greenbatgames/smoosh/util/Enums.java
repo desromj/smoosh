@@ -11,6 +11,7 @@ public class Enums
     public enum AnimationState
     {
         IDLE("idle"),
+        IDLE_WITH_PROP("idle-with-prop"),
         WALKING("walk"),
         WALKING_WITH_PROP("walk-with-prop");
 
