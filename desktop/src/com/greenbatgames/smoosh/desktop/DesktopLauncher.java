@@ -7,6 +7,10 @@ import com.greenbatgames.smoosh.SmooshGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+
+		config.width = 1600;
+		config.height = config.width * 9 / 16;
+
 		new LwjglApplication(new SmooshGame(), config);
 	}
 }

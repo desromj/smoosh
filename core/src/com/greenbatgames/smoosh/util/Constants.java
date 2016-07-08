@@ -35,11 +35,6 @@ public class Constants
     public static final int PHYSICS_POS_ITERATIONS = 6;
 
     /*
-        Animation Helper Values
-     */
-    public static final float BUG_IDLE_SPEED_THRESHOLD = 25f;
-
-    /*
         Camera Controls
      */
     public static final float CHASE_CAM_MOVE_SPEED = WORLD_WIDTH * 2.0f;
@@ -63,10 +58,10 @@ public class Constants
     public static final float SMOOSH_JUMP_IMPULSE = 120.0f * SMOOSH_DENSITY;
     public static final float SMOOSH_RADIUS = WORLD_WIDTH / 36.0f;
 
-    public static final float SMOOSH_WALK_SPEED = 100.0f;
-    public static final float SMOOSH_RUN_SPEED = 300.0f;
-    public static final float SMOOSH_HORIZONTAL_WALK_DAMPEN = 0.8f;
-    public static final float SMOOSH_HORIZONTAL_FALL_DAMPEN = 0.95f;
+    public static final float SMOOSH_WALK_SPEED = 160.0f;
+    public static final float SMOOSH_RUN_SPEED = 400.0f;
+    public static final float SMOOSH_HORIZONTAL_WALK_DAMPEN = 0.80f;
+    public static final float SMOOSH_HORIZONTAL_FALL_DAMPEN = 0.90f;
 
     public static final float SMOOSH_VERTEX_X_SCALE = SMOOSH_RADIUS;
     public static final float SMOOSH_VERTEX_Y_SCALE = SMOOSH_RADIUS * 2.0f;
@@ -81,6 +76,12 @@ public class Constants
             new Vector2(0.33f * SMOOSH_VERTEX_X_SCALE / PTM, -2.00f * SMOOSH_VERTEX_Y_SCALE / PTM),
             new Vector2(0.90f * SMOOSH_VERTEX_X_SCALE / PTM, -1.67f * SMOOSH_VERTEX_Y_SCALE / PTM)
     };
+
+    /*
+        Animation Helper Values
+     */
+    public static final float SMOOSH_IDLE_SPEED_THRESHOLD = 25f;
+    public static final float SMOOSH_WALK_SPEED_THRESHOLD = SMOOSH_WALK_SPEED * 2f;
 
     /*
         Platform Game Object Values

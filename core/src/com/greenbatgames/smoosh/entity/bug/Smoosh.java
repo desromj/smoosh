@@ -16,6 +16,7 @@ import com.greenbatgames.smoosh.util.AnimationBlend;
 import com.greenbatgames.smoosh.util.Constants;
 import com.greenbatgames.smoosh.util.Enums;
 
+import spine.AnimationState;
 import spine.Bone;
 import spine.Slot;
 
@@ -64,6 +65,17 @@ public class Smoosh extends Bug
     @Override
     public void update(float delta)
     {
+        // Double the playback speed of running animations
+        float playbackSpeed = 1.0f;
+
+        for (AnimationState.TrackEntry te = this.asset.animationState.getCurrent(0); te != null; te = te.getNext()) {
+            if (te.getAnimation().getName().startsWith("run"))
+                playbackSpeed = 2.0f;
+        }
+
+        this.asset.animationState.getCurrent(0).setTimeScale(playbackSpeed);
+
+        // Update parent method
         super.update(delta);
 
         // Switch the prop carrying method on/off with the E key
@@ -164,15 +176,27 @@ public class Smoosh extends Bug
         return new AnimationBlend [] {
                 AnimationBlend.makeBlend(Enums.AnimationState.IDLE, Enums.AnimationState.WALKING, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.IDLE, Enums.AnimationState.IDLE_WITH_PROP, 0.25f),
+                AnimationBlend.makeBlend(Enums.AnimationState.IDLE, Enums.AnimationState.RUNNING, 0.25f),
 
                 AnimationBlend.makeBlend(Enums.AnimationState.IDLE_WITH_PROP, Enums.AnimationState.IDLE, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.IDLE_WITH_PROP, Enums.AnimationState.WALKING_WITH_PROP, 0.25f),
+                AnimationBlend.makeBlend(Enums.AnimationState.IDLE_WITH_PROP, Enums.AnimationState.RUNNING_WITH_PROP, 0.25f),
 
                 AnimationBlend.makeBlend(Enums.AnimationState.WALKING, Enums.AnimationState.IDLE, 0.25f),
+                AnimationBlend.makeBlend(Enums.AnimationState.WALKING, Enums.AnimationState.RUNNING, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.WALKING, Enums.AnimationState.WALKING_WITH_PROP, 0.25f),
 
                 AnimationBlend.makeBlend(Enums.AnimationState.WALKING_WITH_PROP, Enums.AnimationState.IDLE_WITH_PROP, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.WALKING_WITH_PROP, Enums.AnimationState.WALKING, 0.25f),
+                AnimationBlend.makeBlend(Enums.AnimationState.WALKING_WITH_PROP, Enums.AnimationState.RUNNING_WITH_PROP, 0.25f),
+
+                AnimationBlend.makeBlend(Enums.AnimationState.RUNNING, Enums.AnimationState.IDLE, 0.25f),
+                AnimationBlend.makeBlend(Enums.AnimationState.RUNNING, Enums.AnimationState.WALKING, 0.25f),
+                AnimationBlend.makeBlend(Enums.AnimationState.RUNNING, Enums.AnimationState.RUNNING_WITH_PROP, 0.25f),
+
+                AnimationBlend.makeBlend(Enums.AnimationState.RUNNING_WITH_PROP, Enums.AnimationState.RUNNING, 0.25f),
+                AnimationBlend.makeBlend(Enums.AnimationState.RUNNING_WITH_PROP, Enums.AnimationState.WALKING_WITH_PROP, 0.25f),
+                AnimationBlend.makeBlend(Enums.AnimationState.RUNNING_WITH_PROP, Enums.AnimationState.IDLE_WITH_PROP, 0.25f)
         };
     }
 
@@ -188,13 +212,17 @@ public class Smoosh extends Bug
         // Then get the necessary animation state
         if (this.grounded)
         {
-            if (Math.abs(this.getBody().getLinearVelocity().x * Constants.PTM) > Constants.BUG_IDLE_SPEED_THRESHOLD) {
+            if (Math.abs(this.getBody().getLinearVelocity().x * Constants.PTM) > Constants.SMOOSH_WALK_SPEED_THRESHOLD) {
+                if (this.carryingProp)
+                    return Enums.AnimationState.RUNNING_WITH_PROP;
+                else
+                    return Enums.AnimationState.RUNNING;
+            } else if (Math.abs(this.getBody().getLinearVelocity().x * Constants.PTM) > Constants.SMOOSH_IDLE_SPEED_THRESHOLD) {
                 if (this.carryingProp)
                     return Enums.AnimationState.WALKING_WITH_PROP;
                 else
                     return Enums.AnimationState.WALKING;
-            }
-            else {
+            } else {
                 if (this.carryingProp)
                     return Enums.AnimationState.IDLE_WITH_PROP;
                 else

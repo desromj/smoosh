@@ -12,8 +12,12 @@ public class Enums
     {
         IDLE("idle"),
         IDLE_WITH_PROP("idle-with-prop"),
+
         WALKING("walk"),
-        WALKING_WITH_PROP("walk-with-prop");
+        WALKING_WITH_PROP("walk-with-prop"),
+
+        RUNNING("run"),
+        RUNNING_WITH_PROP("run-with-prop");
 
         private String label;
 
