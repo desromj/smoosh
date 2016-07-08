@@ -52,14 +52,14 @@ public class Assets implements Disposable, AssetErrorListener
         Spine Animation Asset Classes
      */
 
-    public SpineAnimationAsset makeAsset(Bug bug) throws NotImplementedException
+    public SpineBugAnimationAsset makeAsset(Bug bug) throws NotImplementedException
     {
         if (bug instanceof Smoosh)      return new SmooshAssets(bug);
         else                            throw new NotImplementedException();
     }
 
     // Parent class which can be rendered via the Spine runtimes
-    public abstract class SpineAnimationAsset
+    public abstract class SpineBugAnimationAsset
     {
         protected SkeletonRenderer skeletonRenderer;
         protected SkeletonRendererDebug skeletonRendererDebug;
@@ -74,7 +74,7 @@ public class Assets implements Disposable, AssetErrorListener
         // All subclasses must initialize all required Spine classes above
         public abstract void initSpine();
 
-        public SpineAnimationAsset(Bug bug)
+        public SpineBugAnimationAsset(Bug bug)
         {
             this.bug = bug;
             initSpine();
@@ -99,7 +99,7 @@ public class Assets implements Disposable, AssetErrorListener
     /**
      * Bloom is the main character of the game
      */
-    private final class SmooshAssets extends SpineAnimationAsset
+    private final class SmooshAssets extends SpineBugAnimationAsset
     {
         public SmooshAssets(Bug bug) { super(bug); }
 
@@ -131,7 +131,7 @@ public class Assets implements Disposable, AssetErrorListener
             for (AnimationBlend blend: this.bug.getBlends())
                 animationStateData.setMix(blend.getFrom(), blend.getTo(), blend.getDuration());
 
-            // Set default animation
+            // Set default animation for all bugs - idle
             animationState.setAnimation(0, "idle", true);
         }
     }
