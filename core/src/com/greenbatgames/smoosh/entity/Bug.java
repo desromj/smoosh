@@ -61,8 +61,6 @@ public abstract class Bug extends PhysicsObject
 
         if (this.animationState != this.previousState)
             this.animationChanged = true;
-        else
-            this.animationChanged = false;
 
         this.previousState = this.animationState;
 
@@ -81,6 +79,7 @@ public abstract class Bug extends PhysicsObject
     public void renderSprites(SpriteBatch batch)
     {
         if (this.animationChanged) {
+            asset.skeleton.setToSetupPose();
             asset.setAnimation(0, this.animationState.getLabel(), true);
             this.animationChanged = false;
         }
