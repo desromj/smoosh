@@ -30,11 +30,15 @@ public abstract class SpineBugAnimationAsset
     public abstract void initSpine();
     public abstract AnimationBlend[] getBlends();
 
+
+
     public SpineBugAnimationAsset(Bug bug)
     {
         this.bug = bug;
         initSpine();
     }
+
+
 
     public void render(SpriteBatch batch)
     {
@@ -45,6 +49,8 @@ public abstract class SpineBugAnimationAsset
         skeletonRenderer.draw(batch, skeleton);
         // skeletonRendererDebug.draw(skeleton);
     }
+
+
 
     public void setAnimation(int trackIndex, String animationName, boolean loop)
     {

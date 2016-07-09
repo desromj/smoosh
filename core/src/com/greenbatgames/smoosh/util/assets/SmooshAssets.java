@@ -1,6 +1,7 @@
 package com.greenbatgames.smoosh.util.assets;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.greenbatgames.smoosh.entity.Bug;
 import com.greenbatgames.smoosh.util.AnimationBlend;
@@ -8,6 +9,7 @@ import com.greenbatgames.smoosh.util.Enums;
 
 import spine.AnimationState;
 import spine.AnimationStateData;
+import spine.Event;
 import spine.Skeleton;
 import spine.SkeletonData;
 import spine.SkeletonJson;
@@ -42,6 +44,17 @@ public class SmooshAssets extends SpineBugAnimationAsset
         // init animation
         AnimationStateData stateData = new AnimationStateData(skeletonData);
         animationState = new AnimationState(stateData);
+
+        // Spine Event Listeners
+        animationState.addListener(new AnimationState.AnimationStateAdapter() {
+            @Override
+            public void event(int trackIndex, Event event) {
+                if (event.getData().getName().compareTo("footstep") == 0)
+                {
+                    Gdx.audio.newSound(Gdx.files.internal("audio/effects/footstep-grass.wav")).play(0.2f);
+                }
+            }
+        });
 
         // Interpolations
         AnimationStateData animationStateData = animationState.getData();
