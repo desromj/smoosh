@@ -28,7 +28,7 @@ public class Utils
      * @param imagesPath Gdx.files.internal path to the images the filePath file uses
      * @param position Where to spawn the ParticleEffect onscreen
      * @param scale Scale to apply to the ParticleEffect
-     * @return
+     * @return The created and started ParticleEffect
      */
     public static ParticleEffect makeParticleEffect(
             String filePath,
