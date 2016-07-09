@@ -1,5 +1,8 @@
 package com.greenbatgames.smoosh.util;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -13,10 +16,26 @@ public class Utils
 {
     private Utils() {}
 
+    /**
+     * @param filename The filename of the sound effect in audio/effects to play, INCLUDING EXTENSION
+     * @param volume Ratio of volume to play the effect at
+     * @return The Sound object created and currently being played, in case it needs to be edited further
+     */
+    public static Sound playSoundEffect(String filename, float volume)
+    {
+        Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/effects/" + filename));
+        sound.play(volume);
+        return sound;
+    }
+
+
+
     public static boolean almostEqualTo(float first, float second, float variance)
     {
         return Math.abs(first - second) < variance;
     }
+
+
 
     public static float getMassRatio(Body first, Body second, boolean getFirst)
     {
@@ -27,6 +46,8 @@ public class Utils
             return firstRatio;
         return secondRatio;
     }
+
+
 
     public static boolean contactHasPlayer(Contact contact)
     {
@@ -39,6 +60,8 @@ public class Utils
         return false;
     }
 
+
+
     public static boolean contactHasBug(Contact contact)
     {
         Object
@@ -49,6 +72,8 @@ public class Utils
             return true;
         return false;
     }
+
+
 
     public static Bug getPlayerContact(Contact contact) throws NullPointerException
     {
@@ -64,6 +89,8 @@ public class Utils
             throw new NullPointerException();
     }
 
+
+
     public static Bug getBugContact(Contact contact) throws NullPointerException
     {
         Object
@@ -78,6 +105,8 @@ public class Utils
             throw new NullPointerException();
     }
 
+
+
     public static Object getNonPlayerContact(Contact contact) throws NullPointerException
     {
         Object
@@ -91,6 +120,8 @@ public class Utils
         else
             throw new NullPointerException();
     }
+
+
 
     /**
      * @param contact
@@ -111,6 +142,8 @@ public class Utils
         else
             throw new NullPointerException();
     }
+
+
 
     /**
      * Uses the user data from a contact to return the Fixture of the correct Fixture

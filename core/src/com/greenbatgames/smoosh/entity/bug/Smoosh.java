@@ -2,23 +2,18 @@ package com.greenbatgames.smoosh.entity.bug;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.greenbatgames.smoosh.entity.Bug;
-import com.greenbatgames.smoosh.util.AnimationBlend;
 import com.greenbatgames.smoosh.util.Constants;
 import com.greenbatgames.smoosh.util.Enums;
+import com.greenbatgames.smoosh.util.Utils;
 
 import spine.AnimationState;
-import spine.Bone;
-import spine.Slot;
 
 /**
  * Created by Quiv on 06-07-2016.
@@ -81,6 +76,8 @@ public class Smoosh extends Bug
         // Switch the prop carrying method on/off with the E key
         if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             this.carryingProp = !this.carryingProp;
+            if (this.carryingProp)
+                Utils.playSoundEffect("match-strike.wav", 0.4f);
             this.refreshAnimationState();
         }
     }
