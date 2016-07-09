@@ -8,13 +8,14 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.greenbatgames.smoosh.util.assets.Assets;
 import com.greenbatgames.smoosh.util.Constants;
 import com.greenbatgames.smoosh.util.Enums;
+import com.greenbatgames.smoosh.util.assets.SpineBugAnimationAsset;
 
 /**
  * Created by Quiv on 06-07-2016.
  */
 public abstract class Bug extends PhysicsObject
 {
-    protected Assets.SpineBugAnimationAsset asset;
+    protected SpineBugAnimationAsset asset;
     protected Enums.AnimationState animationState, previousState;
     protected boolean grounded, jumped;
     private boolean animationChanged;
