@@ -1,24 +1,13 @@
-package com.greenbatgames.smoosh.util;
+package com.greenbatgames.smoosh.util.assets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Disposable;
 import com.greenbatgames.smoosh.entity.Bug;
 import com.greenbatgames.smoosh.entity.bug.Smoosh;
-import com.greenbatgames.smoosh.util.assets.SmooshAssets;
-import com.greenbatgames.smoosh.util.assets.SpineBugAnimationAsset;
 
-import spine.AnimationState;
-import spine.AnimationStateData;
-import spine.Skeleton;
-import spine.SkeletonData;
-import spine.SkeletonJson;
-import spine.SkeletonRenderer;
-import spine.SkeletonRendererDebug;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
