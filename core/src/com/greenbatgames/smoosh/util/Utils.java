@@ -3,6 +3,8 @@ package com.greenbatgames.smoosh.util;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.Fixture;
@@ -15,6 +17,36 @@ import com.greenbatgames.smoosh.screen.GameScreen;
 public class Utils
 {
     private Utils() {}
+
+
+
+    /**
+     * Creates a ParticleEffect object given the path, imagePath, scale, and position.
+     * Also starts the particle effect and adds it to the GameScreen at the given position.
+     *
+     * @param filePath Gdx.files.internal path to the file defining the particle effect
+     * @param imagesPath Gdx.files.internal path to the images the filePath file uses
+     * @param position Where to spawn the ParticleEffect onscreen
+     * @param scale Scale to apply to the ParticleEffect
+     * @return
+     */
+    public static ParticleEffect makeParticleEffect(
+            String filePath,
+            String imagesPath,
+            Vector2 position,
+            float scale
+    )
+    {
+        ParticleEffect effect = new ParticleEffect();
+        effect.load(Gdx.files.internal(filePath), Gdx.files.internal(imagesPath));
+        effect.setPosition(position.x, position.y);
+        effect.scaleEffect(scale);
+        effect.start();
+
+        return effect;
+    }
+
+
 
     /**
      * @param filename The filename of the sound effect in audio/effects to play, INCLUDING EXTENSION
