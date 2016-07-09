@@ -39,13 +39,6 @@ public abstract class Bug extends PhysicsObject
     protected abstract Enums.AnimationState nextAnimationState();
     protected abstract void move();
 
-    /**
-     * @return an array of Animation blends for this particular bug. If there are none applicable,
-     *      return an empty Array. Default method returns the empty array, and can be overridden
-     *      by child classes.
-     */
-    public AnimationBlend [] getBlends() { return new AnimationBlend[] {}; }
-
 
 
     public void update(float delta)

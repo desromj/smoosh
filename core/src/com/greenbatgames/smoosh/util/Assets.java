@@ -73,6 +73,7 @@ public class Assets implements Disposable, AssetErrorListener
 
         // All subclasses must initialize all required Spine classes above
         public abstract void initSpine();
+        public abstract AnimationBlend [] getBlends();
 
         public SpineBugAnimationAsset(Bug bug)
         {
@@ -128,11 +129,47 @@ public class Assets implements Disposable, AssetErrorListener
             // Interpolations
             AnimationStateData animationStateData = animationState.getData();
 
-            for (AnimationBlend blend: this.bug.getBlends())
+            for (AnimationBlend blend: this.getBlends())
                 animationStateData.setMix(blend.getFrom(), blend.getTo(), blend.getDuration());
 
             // Set default animation for all bugs - idle
             animationState.setAnimation(0, "idle", true);
+        }
+
+
+
+        /**
+         * @return an array of Animation blends for this particular bug. If there are none applicable,
+         *      return an empty Array. Default method returns the empty array, and can be overridden
+         *      by child classes.
+         */
+        @Override
+        public AnimationBlend[] getBlends() {
+            return new AnimationBlend [] {
+                    AnimationBlend.makeBlend(Enums.AnimationState.IDLE, Enums.AnimationState.WALKING, 0.25f),
+                    AnimationBlend.makeBlend(Enums.AnimationState.IDLE, Enums.AnimationState.IDLE_WITH_PROP, 0.25f),
+                    AnimationBlend.makeBlend(Enums.AnimationState.IDLE, Enums.AnimationState.RUNNING, 0.25f),
+
+                    AnimationBlend.makeBlend(Enums.AnimationState.IDLE_WITH_PROP, Enums.AnimationState.IDLE, 0.25f),
+                    AnimationBlend.makeBlend(Enums.AnimationState.IDLE_WITH_PROP, Enums.AnimationState.WALKING_WITH_PROP, 0.25f),
+                    AnimationBlend.makeBlend(Enums.AnimationState.IDLE_WITH_PROP, Enums.AnimationState.RUNNING_WITH_PROP, 0.25f),
+
+                    AnimationBlend.makeBlend(Enums.AnimationState.WALKING, Enums.AnimationState.IDLE, 0.25f),
+                    AnimationBlend.makeBlend(Enums.AnimationState.WALKING, Enums.AnimationState.RUNNING, 0.75f),
+                    AnimationBlend.makeBlend(Enums.AnimationState.WALKING, Enums.AnimationState.WALKING_WITH_PROP, 0.25f),
+
+                    AnimationBlend.makeBlend(Enums.AnimationState.WALKING_WITH_PROP, Enums.AnimationState.IDLE_WITH_PROP, 0.25f),
+                    AnimationBlend.makeBlend(Enums.AnimationState.WALKING_WITH_PROP, Enums.AnimationState.WALKING, 0.25f),
+                    AnimationBlend.makeBlend(Enums.AnimationState.WALKING_WITH_PROP, Enums.AnimationState.RUNNING_WITH_PROP, 0.75f),
+
+                    AnimationBlend.makeBlend(Enums.AnimationState.RUNNING, Enums.AnimationState.IDLE, 0.25f),
+                    AnimationBlend.makeBlend(Enums.AnimationState.RUNNING, Enums.AnimationState.WALKING, 0.75f),
+                    AnimationBlend.makeBlend(Enums.AnimationState.RUNNING, Enums.AnimationState.RUNNING_WITH_PROP, 0.25f),
+
+                    AnimationBlend.makeBlend(Enums.AnimationState.RUNNING_WITH_PROP, Enums.AnimationState.RUNNING, 0.25f),
+                    AnimationBlend.makeBlend(Enums.AnimationState.RUNNING_WITH_PROP, Enums.AnimationState.WALKING_WITH_PROP, 0.75f),
+                    AnimationBlend.makeBlend(Enums.AnimationState.RUNNING_WITH_PROP, Enums.AnimationState.IDLE_WITH_PROP, 0.25f)
+            };
         }
     }
 }
