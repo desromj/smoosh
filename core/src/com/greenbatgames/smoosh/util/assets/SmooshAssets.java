@@ -52,7 +52,7 @@ public class SmooshAssets extends SpineBugAnimationAsset
             public void event(int trackIndex, Event event) {
                 if (event.getData().getName().compareTo("footstep") == 0)
                 {
-                    Utils.playSound("audio/effects/footstep-grass.wav", 0.2f);
+                    Utils.playSound("audio/effects/footstep-grass.wav", 0.25f);
                 }
             }
         });

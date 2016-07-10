@@ -56,7 +56,22 @@ public class Utils
     public static Sound playSound(String filename, float volume)
     {
         Sound sound = Gdx.audio.newSound(Gdx.files.internal(filename));
-        sound.play(volume);
+        sound.play(volume * Constants.VOLUME_EFFECTS);
+        return sound;
+    }
+
+
+
+    /**
+     * @param filename The filename of the internal-path sound effect to play, including extension
+     * @param volume Ratio of volume to play the effect at
+     * @return The Sound object created and currently being played, in case it needs to be edited further
+     */
+    public static Sound playMusic(String filename, float volume)
+    {
+        // TODO: Change this to actually play music instead of sound effects
+        Sound sound = Gdx.audio.newSound(Gdx.files.internal(filename));
+        sound.play(volume * Constants.VOLUME_MUSIC);
         return sound;
     }
 

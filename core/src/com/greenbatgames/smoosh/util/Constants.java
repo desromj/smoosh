@@ -11,6 +11,13 @@ public class Constants
     private Constants() {}
 
     /*
+        User-Configurable Options
+     */
+    public static float VOLUME_EFFECTS = 1.0f;
+    public static float VOLUME_MUSIC = 1.0f;
+
+
+    /*
         World Aspect Ratio
      */
     public static final float WORLD_WIDTH = 800f;
