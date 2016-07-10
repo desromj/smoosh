@@ -1,7 +1,10 @@
 package com.greenbatgames.smoosh.animation;
 
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g3d.particles.emitters.Emitter;
+import com.badlogic.gdx.graphics.g3d.particles.emitters.RegularEmitter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.greenbatgames.smoosh.entity.Bug;
@@ -37,12 +40,10 @@ public abstract class AnimationEffect
         {
             ParticleEffect effect = effects.get(i);
             effect.update(delta);
+            this.clingTransform(effect);
 
             if (effect.isComplete())
                 effects.removeIndex(i);
-            else
-                this.clingTransform(effect);
-
         }
     }
 

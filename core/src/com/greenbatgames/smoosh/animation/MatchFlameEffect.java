@@ -16,7 +16,6 @@ public class MatchFlameEffect extends AnimationEffect
     public MatchFlameEffect(Bug bug)
     {
         super(bug);
-
     }
 
 
@@ -34,8 +33,8 @@ public class MatchFlameEffect extends AnimationEffect
         Bone bone = this.parent.getSkeleton().findBone("prop");
 
         effect.setPosition(
-            this.parent.getPosition().x + bone.getX(),
-            this.parent.getPosition().y + bone.getY()
+            this.parent.getPosition().x + bone.getWorldX() * 1.2f,
+            this.parent.getPosition().y + bone.getWorldY() / 1.5f
         );
     }
 
@@ -46,7 +45,7 @@ public class MatchFlameEffect extends AnimationEffect
         this.effects.add(Utils.makeParticleEffect(
                 "particles/data/pe-match",
                 "particles/images",
-                1.0f
+                0.5f
         ));
     }
 }
