@@ -49,13 +49,13 @@ public class Utils
 
 
     /**
-     * @param filename The filename of the sound effect in audio/effects to play, INCLUDING EXTENSION
+     * @param filename The filename of the internal-path sound effect to play, including extension
      * @param volume Ratio of volume to play the effect at
      * @return The Sound object created and currently being played, in case it needs to be edited further
      */
-    public static Sound playSoundEffect(String filename, float volume)
+    public static Sound playSound(String filename, float volume)
     {
-        Sound sound = Gdx.audio.newSound(Gdx.files.internal("audio/effects/" + filename));
+        Sound sound = Gdx.audio.newSound(Gdx.files.internal(filename));
         sound.play(volume);
         return sound;
     }

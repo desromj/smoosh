@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.greenbatgames.smoosh.entity.Bug;
 import com.greenbatgames.smoosh.util.AnimationBlend;
 import com.greenbatgames.smoosh.util.Enums;
+import com.greenbatgames.smoosh.util.Utils;
 
 import spine.AnimationState;
 import spine.AnimationStateData;
@@ -51,7 +52,7 @@ public class SmooshAssets extends SpineBugAnimationAsset
             public void event(int trackIndex, Event event) {
                 if (event.getData().getName().compareTo("footstep") == 0)
                 {
-                    Gdx.audio.newSound(Gdx.files.internal("audio/effects/footstep-grass.wav")).play(0.2f);
+                    Utils.playSound("audio/effects/footstep-grass.wav", 0.2f);
                 }
             }
         });

@@ -77,7 +77,7 @@ public class Smoosh extends Bug
         if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             this.carryingProp = !this.carryingProp;
             if (this.carryingProp)
-                Utils.playSoundEffect("match-strike.wav", 0.4f);
+                Utils.playSound("audio/effects/match-strike.wav", 0.4f);
             this.refreshAnimationState();
         }
     }
