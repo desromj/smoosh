@@ -7,10 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
-import com.greenbatgames.smoosh.animation.AnimationEffect;
-import com.greenbatgames.smoosh.animation.EffectFactory;
 import com.greenbatgames.smoosh.entity.Bug;
 import com.greenbatgames.smoosh.util.Constants;
 import com.greenbatgames.smoosh.util.Enums;
@@ -92,6 +90,14 @@ public class Smoosh extends Bug
 
             this.refreshAnimationState();
         }
+
+        // Check for crouching
+        if (this.grounded && Gdx.input.isKeyJustPressed(Input.Keys.CONTROL_LEFT)) {
+            if (this.crouched)
+                this.unCrouch();
+            else
+                this.crouch();
+        }
     }
 
 
@@ -103,7 +109,12 @@ public class Smoosh extends Bug
         boolean running = (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT));
 
         if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            if (running) {
+            if (this.crouched) {
+                this.body.setLinearVelocity(
+                        Constants.SMOOSH_CROUCH_SPEED / Constants.PTM,
+                        this.body.getLinearVelocity().y
+                );
+            } else if (running) {
                 this.body.setLinearVelocity(
                         Constants.SMOOSH_RUN_SPEED / Constants.PTM,
                         this.body.getLinearVelocity().y
@@ -118,7 +129,12 @@ public class Smoosh extends Bug
             this.facingRight = true;
 
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            if (running) {
+            if (this.crouched) {
+                this.body.setLinearVelocity(
+                        -Constants.SMOOSH_CROUCH_SPEED / Constants.PTM,
+                        this.body.getLinearVelocity().y
+                );
+            } else if (running) {
                 this.body.setLinearVelocity(
                         -Constants.SMOOSH_RUN_SPEED / Constants.PTM,
                         this.body.getLinearVelocity().y
@@ -163,7 +179,7 @@ public class Smoosh extends Bug
         this.body = world.createBody(bodyDef);
 
         PolygonShape shape = new PolygonShape();
-        shape.set(Constants.SMOOSH_VERTICIES);
+        shape.set(Constants.SMOOSH_VERTICIES_NORMAL);
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
@@ -191,7 +207,13 @@ public class Smoosh extends Bug
         // Then get the necessary animation state
         if (this.grounded)
         {
-            if (Math.abs(this.getBody().getLinearVelocity().x * Constants.PTM) > Constants.SMOOSH_WALK_SPEED_THRESHOLD) {
+            if (this.crouched)
+            {
+                if (this.carryingProp)
+                    return Enums.AnimationState.CROUCHING_WITH_PROP;
+                else
+                    return Enums.AnimationState.CROUCHING;
+            } else if (Math.abs(this.getBody().getLinearVelocity().x * Constants.PTM) > Constants.SMOOSH_WALK_SPEED_THRESHOLD) {
                 if (this.carryingProp)
                     return Enums.AnimationState.RUNNING_WITH_PROP;
                 else
@@ -215,6 +237,31 @@ public class Smoosh extends Bug
         }
     }
 
+
+
+    @Override
+    protected void setCrouchCollision(boolean crouching)
+    {
+        PolygonShape shape = new PolygonShape();
+
+        if (this.isCrouched())
+            shape.set(Constants.SMOOSH_VERTICIES_CROUCHED);
+        else
+            shape.set(Constants.SMOOSH_VERTICIES_NORMAL);
+
+        // TODO: Change physics shape here. Currently crashes
+        FixtureDef fixDef = new FixtureDef();
+
+        fixDef.shape = shape;
+        fixDef.density = this.body.getFixtureList().first().getDensity();
+        fixDef.restitution = this.body.getFixtureList().first().getRestitution();
+        fixDef.friction = this.body.getFixtureList().first().getFriction();
+
+        this.body.destroyFixture(this.body.getFixtureList().first());
+        this.body.createFixture(fixDef);
+
+        shape.dispose();
+    }
 
 
     @Override

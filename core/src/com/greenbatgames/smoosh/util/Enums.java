@@ -13,6 +13,9 @@ public class Enums
         IDLE("idle"),
         IDLE_WITH_PROP("idle-with-prop"),
 
+        CROUCHING("crouch"),
+        CROUCHING_WITH_PROP("crouch-with-prop"),
+
         WALKING("walk"),
         WALKING_WITH_PROP("walk-with-prop"),
 

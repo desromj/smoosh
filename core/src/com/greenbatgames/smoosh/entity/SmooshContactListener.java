@@ -49,8 +49,12 @@ public class SmooshContactListener implements ContactListener
                     }
                 }
 
-                if (landed)
-                    bug.land();
+                if (landed) {
+                    if (bug.isCrouched())
+                        bug.crouch();
+                    else
+                        bug.land();
+                }
             }
         }
     }

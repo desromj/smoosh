@@ -2,7 +2,6 @@ package com.greenbatgames.smoosh.entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -25,7 +24,9 @@ public abstract class Bug extends PhysicsObject
     private SpineBugAnimationAsset asset;
 
     protected Enums.AnimationState animationState, previousState;
-    protected boolean grounded, jumped;
+
+    protected boolean grounded, jumped, crouched;
+
     private boolean animationChanged;
     protected boolean facingRight;
     protected float disableCollisionFor;
@@ -34,6 +35,7 @@ public abstract class Bug extends PhysicsObject
     public Bug(float x, float y, float width, float height, World world, boolean grounded) {
         super(x, y, width, height, world);
         this.grounded = grounded;
+        this.crouched = false;
         this.jumped = true;
         this.animationChanged = false;
         this.facingRight = true;
@@ -48,6 +50,7 @@ public abstract class Bug extends PhysicsObject
 
     protected abstract Enums.AnimationState nextAnimationState();
     protected abstract void move();
+    protected abstract void setCrouchCollision(boolean crouching);
 
 
 
@@ -138,6 +141,7 @@ public abstract class Bug extends PhysicsObject
     public void land()
     {
         this.grounded = true;
+        this.crouched = false;
         this.jumped = false;
     }
 
@@ -161,11 +165,29 @@ public abstract class Bug extends PhysicsObject
 
 
 
+    public void crouch()
+    {
+        this.grounded = true;
+        this.crouched = true;
+        this.jumped = false;
+
+        this.setCrouchCollision(true);
+    }
+
+    public void unCrouch()
+    {
+        this.crouched = false;
+
+        this.setCrouchCollision(false);
+    }
+
+
     /*
         Getters and Setters
      */
     public Vector2 getPosition() { return this.position; }
     public Vector2 getLastPosition() { return this.lastPosition; }
+    public boolean isCrouched() { return this.crouched; }
 
     public final AnimationState getAnimationState() { return this.asset.animationState; }
     public final Skeleton getSkeleton() { return this.asset.skeleton; }
