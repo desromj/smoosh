@@ -31,4 +31,12 @@ public class Enums
             return this.label;
         }
     }
+
+
+
+    // Particle Effects to be used in Animations
+    public enum EffectType
+    {
+        MATCH_FLAME;
+    }
 }

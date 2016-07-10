@@ -10,6 +10,9 @@ import com.greenbatgames.smoosh.util.Constants;
 import com.greenbatgames.smoosh.util.Enums;
 import com.greenbatgames.smoosh.util.assets.SpineBugAnimationAsset;
 
+import spine.AnimationState;
+import spine.Skeleton;
+
 /**
  * Created by Quiv on 06-07-2016.
  */
@@ -122,6 +125,9 @@ public abstract class Bug extends PhysicsObject
      */
     public Vector2 getPosition() { return this.position; }
     public Vector2 getLastPosition() { return this.lastPosition; }
+
+    public final AnimationState getAnimationState() { return this.asset.animationState; }
+    public final Skeleton getSkeleton() { return this.asset.skeleton; }
 
     public boolean collisionDisabled() { return this.disableCollisionFor > 0f; }
     public final void refreshAnimationState() { this.animationChanged = true; }

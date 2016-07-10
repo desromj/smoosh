@@ -76,8 +76,10 @@ public class Smoosh extends Bug
         // Switch the prop carrying method on/off with the E key
         if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             this.carryingProp = !this.carryingProp;
+
             if (this.carryingProp)
                 Utils.playSound("audio/effects/match-strike.wav", 0.4f);
+
             this.refreshAnimationState();
         }
     }
