@@ -21,27 +21,22 @@ public class Utils
 
 
     /**
-     * Creates a ParticleEffect object given the path, imagePath, scale, and position.
-     * Also starts the particle effect and adds it to the GameScreen at the given position.
+     * Creates a ParticleEffect object given the path, imagePath, and scale.
      *
      * @param filePath Gdx.files.internal path to the file defining the particle effect
      * @param imagesPath Gdx.files.internal path to the images the filePath file uses
-     * @param position Where to spawn the ParticleEffect onscreen
      * @param scale Scale to apply to the ParticleEffect
      * @return The created and started ParticleEffect
      */
     public static ParticleEffect makeParticleEffect(
             String filePath,
             String imagesPath,
-            Vector2 position,
             float scale
     )
     {
         ParticleEffect effect = new ParticleEffect();
         effect.load(Gdx.files.internal(filePath), Gdx.files.internal(imagesPath));
-        effect.setPosition(position.x, position.y);
         effect.scaleEffect(scale);
-        effect.start();
 
         return effect;
     }

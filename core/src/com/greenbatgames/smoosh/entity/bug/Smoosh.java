@@ -8,6 +8,9 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
+import com.greenbatgames.smoosh.animation.AnimationEffect;
+import com.greenbatgames.smoosh.animation.EffectFactory;
 import com.greenbatgames.smoosh.entity.Bug;
 import com.greenbatgames.smoosh.util.Constants;
 import com.greenbatgames.smoosh.util.Enums;
@@ -53,6 +56,9 @@ public class Smoosh extends Bug
         this.grounded = false;
         this.disableCollisionFor = 0.0f;
         this.carryingProp = false;
+
+        // Load all particle effects
+        this.addParticleEffect(Enums.EffectType.MATCH_FLAME);
     }
 
 
@@ -63,12 +69,12 @@ public class Smoosh extends Bug
         // Double the playback speed of running animations
         float playbackSpeed = 1.0f;
 
-        for (AnimationState.TrackEntry te = this.asset.animationState.getCurrent(0); te != null; te = te.getNext()) {
+        for (AnimationState.TrackEntry te = this.getAnimationState().getCurrent(0); te != null; te = te.getNext()) {
             if (te.getAnimation().getName().startsWith("run"))
                 playbackSpeed = 2.0f;
         }
 
-        this.asset.animationState.getCurrent(0).setTimeScale(playbackSpeed);
+        this.getAnimationState().getCurrent(0).setTimeScale(playbackSpeed);
 
         // Update parent method
         super.update(delta);
@@ -77,8 +83,12 @@ public class Smoosh extends Bug
         if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             this.carryingProp = !this.carryingProp;
 
-            if (this.carryingProp)
+            if (this.carryingProp) {
+                this.turnEffectOn(Enums.EffectType.MATCH_FLAME);
                 Utils.playSound("audio/effects/match-strike.wav", 0.4f);
+            } else {
+                this.turnEffectOff(Enums.EffectType.MATCH_FLAME);
+            }
 
             this.refreshAnimationState();
         }

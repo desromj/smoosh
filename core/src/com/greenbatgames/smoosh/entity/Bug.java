@@ -2,9 +2,13 @@ package com.greenbatgames.smoosh.entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
+import com.greenbatgames.smoosh.animation.AnimationEffect;
+import com.greenbatgames.smoosh.animation.EffectFactory;
 import com.greenbatgames.smoosh.util.assets.Assets;
 import com.greenbatgames.smoosh.util.Constants;
 import com.greenbatgames.smoosh.util.Enums;
@@ -18,12 +22,14 @@ import spine.Skeleton;
  */
 public abstract class Bug extends PhysicsObject
 {
-    protected SpineBugAnimationAsset asset;
+    private SpineBugAnimationAsset asset;
+
     protected Enums.AnimationState animationState, previousState;
     protected boolean grounded, jumped;
     private boolean animationChanged;
     protected boolean facingRight;
     protected float disableCollisionFor;
+    protected Array<AnimationEffect> particles;
 
     public Bug(float x, float y, float width, float height, World world, boolean grounded) {
         super(x, y, width, height, world);
@@ -35,12 +41,38 @@ public abstract class Bug extends PhysicsObject
         this.asset = Assets.instance.makeAsset(this);
         this.animationState = Enums.AnimationState.IDLE;
         this.previousState = Enums.AnimationState.IDLE;
+        this.particles = new Array<AnimationEffect>();
     }
 
 
 
     protected abstract Enums.AnimationState nextAnimationState();
     protected abstract void move();
+
+
+
+    protected void addParticleEffect(Enums.EffectType type)
+    {
+        this.particles.add(EffectFactory.makeEffect(type, this));
+    }
+
+
+
+    protected void turnEffectOn(Enums.EffectType type)
+    {
+        for (AnimationEffect effect: particles)
+            if (effect.getType() == type)
+                effect.turnOn();
+    }
+
+
+
+    protected void turnEffectOff(Enums.EffectType type)
+    {
+        for (AnimationEffect effect: particles)
+            if (effect.getType() == type)
+                effect.turnOff();
+    }
 
 
 
@@ -75,6 +107,10 @@ public abstract class Bug extends PhysicsObject
         this.asset.skeleton.setPosition(
                 this.getPosition().x,
                 this.getPosition().y - this.getHeight() / 2.0f);
+
+        // Update particle effects
+        for (AnimationEffect effect: particles)
+            effect.update(delta);
     }
 
 
@@ -82,6 +118,7 @@ public abstract class Bug extends PhysicsObject
     @Override
     public void renderSprites(SpriteBatch batch)
     {
+        // Render the bug first
         if (this.animationChanged) {
             asset.skeleton.setToSetupPose();
             asset.setAnimation(0, this.animationState.getLabel(), true);
@@ -90,6 +127,10 @@ public abstract class Bug extends PhysicsObject
 
         this.asset.skeleton.setFlipX(!this.facingRight);
         asset.render(batch);
+
+        // Render particle effects
+        for (AnimationEffect effect: particles)
+            effect.draw(batch);
     }
 
 

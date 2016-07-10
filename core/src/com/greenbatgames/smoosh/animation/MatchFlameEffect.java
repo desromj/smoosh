@@ -1,7 +1,9 @@
 package com.greenbatgames.smoosh.animation;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.greenbatgames.smoosh.entity.Bug;
+import com.greenbatgames.smoosh.util.Enums;
 import com.greenbatgames.smoosh.util.Utils;
 
 import spine.Bone;
@@ -20,13 +22,20 @@ public class MatchFlameEffect extends AnimationEffect
 
 
     @Override
+    public Enums.EffectType getType() {
+        return Enums.EffectType.MATCH_FLAME;
+    }
+
+
+
+    @Override
     protected void clingTransform(ParticleEffect effect) {
 
         Bone bone = this.parent.getSkeleton().findBone("prop");
 
-        this.position.set(
-                this.parent.getPosition().x + bone.getX(),
-                this.parent.getPosition().y + bone.getY()
+        effect.setPosition(
+            this.parent.getPosition().x + bone.getX(),
+            this.parent.getPosition().y + bone.getY()
         );
     }
 
@@ -37,7 +46,6 @@ public class MatchFlameEffect extends AnimationEffect
         this.effects.add(Utils.makeParticleEffect(
                 "particles/data/pe-match",
                 "particles/images",
-                this.position,
                 1.0f
         ));
     }
