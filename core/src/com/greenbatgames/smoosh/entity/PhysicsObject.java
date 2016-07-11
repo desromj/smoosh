@@ -27,6 +27,7 @@ public abstract class PhysicsObject
         this.height = height;
 
         this.atRest = false;
+        this.body = null;
 
         initPhysics(world);
     }
@@ -52,6 +53,8 @@ public abstract class PhysicsObject
         // Update our last position for the next frame
         this.lastPosition.set(this.position.x, this.position.y);
     }
+
+    public void setBody(Body body) { this.body = body; }
 
     public boolean isAtRest() { return atRest; }
     public Vector2 getPosition() {

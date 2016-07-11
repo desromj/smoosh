@@ -9,17 +9,23 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.greenbatgames.smoosh.entity.Bug;
+import com.greenbatgames.smoosh.entity.PhysicsObject;
 import com.greenbatgames.smoosh.entity.Platform;
 import com.greenbatgames.smoosh.entity.SmooshContactListener;
 import com.greenbatgames.smoosh.entity.bug.Smoosh;
 import com.greenbatgames.smoosh.util.ChaseCam;
 import com.greenbatgames.smoosh.util.Constants;
+
+import java.util.Map;
 
 /**
  * Created by Quiv on 06-07-2016.
@@ -27,6 +33,7 @@ import com.greenbatgames.smoosh.util.Constants;
 public class GameScreen extends ScreenAdapter implements InputProcessor
 {
     public static final GameScreen instance = new GameScreen();
+    public static final String TAG = GameScreen.class.getSimpleName();
 
     Viewport viewport;
     ShapeRenderer renderer;
@@ -38,6 +45,10 @@ public class GameScreen extends ScreenAdapter implements InputProcessor
     Vector2 spawnPoint;
 
     World world;
+    Array<Body> bodiesToRemove;
+    Array<BodyDef> bodiesToAdd;
+    Array<FixtureDef> fixturesToAdd;
+    Array<PhysicsObject> userDataToAdd;
     Box2DDebugRenderer debugRenderer;
     Matrix4 debugMatrix;
 
@@ -47,6 +58,10 @@ public class GameScreen extends ScreenAdapter implements InputProcessor
     {
         // Init physics world: with gravity
         world = new World(new Vector2(0, Constants.GRAVITY), true);
+        bodiesToAdd = new Array<BodyDef>();
+        fixturesToAdd = new Array<FixtureDef>();
+        userDataToAdd = new Array<PhysicsObject>();
+        bodiesToRemove = new Array<Body>();
         debugRenderer = new Box2DDebugRenderer();
 
         // Base inits
@@ -80,6 +95,35 @@ public class GameScreen extends ScreenAdapter implements InputProcessor
                 Constants.PHYSICS_VEL_ITERATIONS,
                 Constants.PHYSICS_POS_ITERATIONS
         );
+
+        /*
+            Add and remove queued physics bodies
+          */
+        // Add
+        for (int i = 0; i < this.bodiesToAdd.size; i++)
+        {
+            Gdx.app.log(TAG, "Body To Add: " + this.bodiesToAdd.get(i));
+            Body body = world.createBody(this.bodiesToAdd.get(i));
+            Gdx.app.log(TAG, "Fixture To Add: " + fixturesToAdd.get(i));
+            body.createFixture(fixturesToAdd.get(i));
+            Gdx.app.log(TAG, "User Data To Add: " + userDataToAdd.get(i));
+            body.setUserData(userDataToAdd.get(i));
+
+            userDataToAdd.get(i).setBody(body);
+        }
+
+        if (this.bodiesToAdd.size > 0) {
+            this.bodiesToAdd.clear();
+            this.fixturesToAdd.clear();
+            this.userDataToAdd.clear();
+        }
+
+        // Remove
+        for (int i = 0; i < this.bodiesToRemove.size; i++)
+        {
+            world.destroyBody(this.bodiesToRemove.get(i));
+        }
+        this.bodiesToRemove.clear();
 
         /*
             Game object updates
@@ -159,6 +203,18 @@ public class GameScreen extends ScreenAdapter implements InputProcessor
     public Viewport getViewport()
     {
         return viewport;
+    }
+
+    public void queueBodyToDestroy(Body body)
+    {
+        this.bodiesToRemove.add(body);
+    }
+
+    public void queueBodyToCreate(BodyDef bodyDef, FixtureDef fixtureDef, PhysicsObject newUserData)
+    {
+        this.bodiesToAdd.add(bodyDef);
+        this.fixturesToAdd.add(fixtureDef);
+        this.userDataToAdd.add(newUserData);
     }
 
     /*

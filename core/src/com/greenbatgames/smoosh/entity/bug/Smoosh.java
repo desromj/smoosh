@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.greenbatgames.smoosh.entity.Bug;
+import com.greenbatgames.smoosh.screen.GameScreen;
 import com.greenbatgames.smoosh.util.Constants;
 import com.greenbatgames.smoosh.util.Enums;
 import com.greenbatgames.smoosh.util.Utils;
@@ -168,6 +169,7 @@ public class Smoosh extends Bug
 
     @Override
     protected void initPhysics(World world) {
+
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(
@@ -242,6 +244,14 @@ public class Smoosh extends Bug
     @Override
     protected void setCrouchCollision(boolean crouching)
     {
+        BodyDef bodyDef = new BodyDef();
+        bodyDef.type = BodyDef.BodyType.DynamicBody;
+        bodyDef.position.set(
+                this.getPosition().x / Constants.PTM,
+                (this.getPosition().y + Constants.SMOOSH_RADIUS) / Constants.PTM
+        );
+        bodyDef.fixedRotation = true;
+
         PolygonShape shape = new PolygonShape();
 
         if (this.isCrouched())
@@ -249,18 +259,15 @@ public class Smoosh extends Bug
         else
             shape.set(Constants.SMOOSH_VERTICIES_NORMAL);
 
-        // TODO: Change physics shape here. Currently crashes
-        FixtureDef fixDef = new FixtureDef();
+        FixtureDef fixtureDef = new FixtureDef();
 
-        fixDef.shape = shape;
-        fixDef.density = this.body.getFixtureList().first().getDensity();
-        fixDef.restitution = this.body.getFixtureList().first().getRestitution();
-        fixDef.friction = this.body.getFixtureList().first().getFriction();
+        fixtureDef.shape = shape;
+        fixtureDef.density = Constants.SMOOSH_DENSITY;
+        fixtureDef.restitution = 0f;
+        fixtureDef.friction = 0f;
 
-        this.body.destroyFixture(this.body.getFixtureList().first());
-        this.body.createFixture(fixDef);
-
-        shape.dispose();
+        GameScreen.instance.queueBodyToCreate(bodyDef, fixtureDef, this);
+        GameScreen.instance.queueBodyToDestroy(this.body);
     }
 
 
