@@ -265,8 +265,8 @@ public class Smoosh extends Bug
             bodyDef.position.set(
                     this.body.getPosition().x,
                     (this.body.getPosition().y -
-                            (Utils.getMaxHeight(Constants.SMOOSH_VERTICIES_NORMAL)
-                                    - Utils.getMaxHeight(Constants.SMOOSH_VERTICIES_CROUCHED))
+                            (Utils.getMaxHeight(Constants.SMOOSH_VERTICIES_CROUCHED)
+                                    - Utils.getMaxHeight(Constants.SMOOSH_VERTICIES_NORMAL))
                                     / 2.0f)
             );
         }
