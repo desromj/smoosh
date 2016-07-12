@@ -211,21 +211,37 @@ public class Smoosh extends Bug
         {
             if (this.crouched)
             {
-                if (this.carryingProp)
-                    return Enums.AnimationState.CROUCHING_WITH_PROP;
+                if (Math.abs(this.getBody().getLinearVelocity().x * Constants.PTM) > Constants.SMOOSH_IDLE_SPEED_THRESHOLD)
+                {
+                    if (this.carryingProp)
+                        return Enums.AnimationState.CRAWLING_WITH_PROP;
+                    else
+                        return Enums.AnimationState.CRAWLING;
+                }
                 else
-                    return Enums.AnimationState.CROUCHING;
-            } else if (Math.abs(this.getBody().getLinearVelocity().x * Constants.PTM) > Constants.SMOOSH_WALK_SPEED_THRESHOLD) {
+                {
+                    if (this.carryingProp)
+                        return Enums.AnimationState.CROUCHING_WITH_PROP;
+                    else
+                        return Enums.AnimationState.CROUCHING;
+                }
+            }
+            else if (Math.abs(this.getBody().getLinearVelocity().x * Constants.PTM) > Constants.SMOOSH_WALK_SPEED_THRESHOLD)
+            {
                 if (this.carryingProp)
                     return Enums.AnimationState.RUNNING_WITH_PROP;
                 else
                     return Enums.AnimationState.RUNNING;
-            } else if (Math.abs(this.getBody().getLinearVelocity().x * Constants.PTM) > Constants.SMOOSH_IDLE_SPEED_THRESHOLD) {
+            }
+            else if (Math.abs(this.getBody().getLinearVelocity().x * Constants.PTM) > Constants.SMOOSH_IDLE_SPEED_THRESHOLD)
+            {
                 if (this.carryingProp)
                     return Enums.AnimationState.WALKING_WITH_PROP;
                 else
                     return Enums.AnimationState.WALKING;
-            } else {
+            }
+            else
+            {
                 if (this.carryingProp)
                     return Enums.AnimationState.IDLE_WITH_PROP;
                 else

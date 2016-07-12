@@ -16,6 +16,9 @@ public class Enums
         CROUCHING("crouch"),
         CROUCHING_WITH_PROP("crouch-with-prop"),
 
+        CRAWLING("crawl"),
+        CRAWLING_WITH_PROP("crawl-with-prop"),
+
         WALKING("walk"),
         WALKING_WITH_PROP("walk-with-prop"),
 
