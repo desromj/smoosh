@@ -21,6 +21,64 @@ public class Utils
 
 
     /**
+     * @param verts
+     * @return The maximum height difference in an array of Vector2 objects
+     */
+    public static float getMaxHeight(Vector2 [] verts)
+    {
+        float highest = 0f, lowest = 0f;
+
+        for (int i = 0; i < verts.length; i++)
+        {
+            if (i == 0)
+            {
+                highest = verts[i].y;
+                lowest = verts[i].y;
+                continue;
+            }
+
+            if (verts[i].y > highest)
+                highest = verts[i].y;
+
+            if (verts[i].y < lowest)
+                lowest = verts[i].y;
+        }
+
+        return highest - lowest;
+    }
+
+
+
+    /**
+     * @param verts
+     * @return The maximum height difference in an array of Vector2 objects
+     */
+    public static float getMaxWidth(Vector2 [] verts)
+    {
+        float highest = 0f, lowest = 0f;
+
+        for (int i = 0; i < verts.length; i++)
+        {
+            if (i == 0)
+            {
+                highest = verts[i].x;
+                lowest = verts[i].x;
+                continue;
+            }
+
+            if (verts[i].x > highest)
+                highest = verts[i].x;
+
+            if (verts[i].x < lowest)
+                lowest = verts[i].x;
+        }
+
+        return highest - lowest;
+    }
+
+
+
+    /**
      * Creates a ParticleEffect object given the path, imagePath, and scale.
      *
      * @param filePath Gdx.files.internal path to the file defining the particle effect

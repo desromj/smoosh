@@ -76,25 +76,25 @@ public class Constants
     public static final float SMOOSH_VERTEX_Y_SCALE = SMOOSH_RADIUS * 2.0f;
 
     public static final Vector2[] SMOOSH_VERTICIES_NORMAL = new Vector2[] {
-            new Vector2(0.90f * SMOOSH_VERTEX_X_SCALE / PTM, 0.67f * SMOOSH_VERTEX_Y_SCALE / PTM),
-            new Vector2(0.33f * SMOOSH_VERTEX_X_SCALE / PTM, 1.00f * SMOOSH_VERTEX_Y_SCALE / PTM),
-            new Vector2(-0.33f * SMOOSH_VERTEX_X_SCALE / PTM, 1.00f * SMOOSH_VERTEX_Y_SCALE / PTM),
-            new Vector2(-0.90f * SMOOSH_VERTEX_X_SCALE / PTM, 0.67f * SMOOSH_VERTEX_Y_SCALE / PTM),
-            new Vector2(-0.90f * SMOOSH_VERTEX_X_SCALE / PTM, -1.67f * SMOOSH_VERTEX_Y_SCALE / PTM),
-            new Vector2(-0.33f * SMOOSH_VERTEX_X_SCALE / PTM, -2.00f * SMOOSH_VERTEX_Y_SCALE / PTM),
-            new Vector2(0.33f * SMOOSH_VERTEX_X_SCALE / PTM, -2.00f * SMOOSH_VERTEX_Y_SCALE / PTM),
-            new Vector2(0.90f * SMOOSH_VERTEX_X_SCALE / PTM, -1.67f * SMOOSH_VERTEX_Y_SCALE / PTM)
+            new Vector2(0.90f * SMOOSH_VERTEX_X_SCALE / PTM, 1.00f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(0.33f * SMOOSH_VERTEX_X_SCALE / PTM, 1.50f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(-0.33f * SMOOSH_VERTEX_X_SCALE / PTM, 1.50f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(-0.90f * SMOOSH_VERTEX_X_SCALE / PTM, 1.00f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(-0.90f * SMOOSH_VERTEX_X_SCALE / PTM, -1.00f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(-0.33f * SMOOSH_VERTEX_X_SCALE / PTM, -1.50f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(0.33f * SMOOSH_VERTEX_X_SCALE / PTM, -1.50f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(0.90f * SMOOSH_VERTEX_X_SCALE / PTM, -1.00f * SMOOSH_VERTEX_Y_SCALE / PTM)
     };
 
     public static final Vector2[] SMOOSH_VERTICIES_CROUCHED = new Vector2[] {
-            new Vector2(1.67f * SMOOSH_VERTEX_X_SCALE / PTM, -1.00f * SMOOSH_VERTEX_Y_SCALE / PTM),
-            new Vector2(1.00f * SMOOSH_VERTEX_X_SCALE / PTM, -0.67f * SMOOSH_VERTEX_Y_SCALE / PTM),
-            new Vector2(-1.00f * SMOOSH_VERTEX_X_SCALE / PTM, -0.67f * SMOOSH_VERTEX_Y_SCALE / PTM),
-            new Vector2(-1.67f * SMOOSH_VERTEX_X_SCALE / PTM, -1.00f * SMOOSH_VERTEX_Y_SCALE / PTM),
-            new Vector2(-1.67f * SMOOSH_VERTEX_X_SCALE / PTM, -1.67f * SMOOSH_VERTEX_Y_SCALE / PTM),
-            new Vector2(-1.00f * SMOOSH_VERTEX_X_SCALE / PTM, -2.00f * SMOOSH_VERTEX_Y_SCALE / PTM),
-            new Vector2(1.00f * SMOOSH_VERTEX_X_SCALE / PTM, -2.00f * SMOOSH_VERTEX_Y_SCALE / PTM),
-            new Vector2(1.67f * SMOOSH_VERTEX_X_SCALE / PTM, -1.67f * SMOOSH_VERTEX_Y_SCALE / PTM)
+            new Vector2(1.67f * SMOOSH_VERTEX_X_SCALE / PTM, 0.50f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(1.00f * SMOOSH_VERTEX_X_SCALE / PTM, 0.75f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(-1.00f * SMOOSH_VERTEX_X_SCALE / PTM, 0.75f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(-1.67f * SMOOSH_VERTEX_X_SCALE / PTM, 0.50f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(-1.67f * SMOOSH_VERTEX_X_SCALE / PTM, -0.50f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(-1.00f * SMOOSH_VERTEX_X_SCALE / PTM, -0.75f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(1.00f * SMOOSH_VERTEX_X_SCALE / PTM, -0.75f * SMOOSH_VERTEX_Y_SCALE / PTM),
+            new Vector2(1.67f * SMOOSH_VERTEX_X_SCALE / PTM, -0.50f * SMOOSH_VERTEX_Y_SCALE / PTM)
     };
 
     /*

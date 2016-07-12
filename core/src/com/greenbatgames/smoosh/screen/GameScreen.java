@@ -96,34 +96,8 @@ public class GameScreen extends ScreenAdapter implements InputProcessor
                 Constants.PHYSICS_POS_ITERATIONS
         );
 
-        /*
-            Add and remove queued physics bodies
-          */
-        // Add
-        for (int i = 0; i < this.bodiesToAdd.size; i++)
-        {
-            Gdx.app.log(TAG, "Body To Add: " + this.bodiesToAdd.get(i));
-            Body body = world.createBody(this.bodiesToAdd.get(i));
-            Gdx.app.log(TAG, "Fixture To Add: " + fixturesToAdd.get(i));
-            body.createFixture(fixturesToAdd.get(i));
-            Gdx.app.log(TAG, "User Data To Add: " + userDataToAdd.get(i));
-            body.setUserData(userDataToAdd.get(i));
-
-            userDataToAdd.get(i).setBody(body);
-        }
-
-        if (this.bodiesToAdd.size > 0) {
-            this.bodiesToAdd.clear();
-            this.fixturesToAdd.clear();
-            this.userDataToAdd.clear();
-        }
-
-        // Remove
-        for (int i = 0; i < this.bodiesToRemove.size; i++)
-        {
-            world.destroyBody(this.bodiesToRemove.get(i));
-        }
-        this.bodiesToRemove.clear();
+        // Edit Physics bodies outside of world.step
+        runQueuedPhysicsChanges();
 
         /*
             Game object updates
@@ -163,6 +137,34 @@ public class GameScreen extends ScreenAdapter implements InputProcessor
 
         // Render the debug physics engine settings
         debugRenderer.render(world, debugMatrix);
+    }
+
+
+
+    private void runQueuedPhysicsChanges()
+    {
+        // Add
+        for (int i = 0; i < this.bodiesToAdd.size; i++)
+        {
+            Body body = world.createBody(this.bodiesToAdd.get(i));
+            body.createFixture(fixturesToAdd.get(i));
+            body.setUserData(userDataToAdd.get(i));
+
+            userDataToAdd.get(i).setBody(body);
+        }
+
+        if (this.bodiesToAdd.size > 0) {
+            this.bodiesToAdd.clear();
+            this.fixturesToAdd.clear();
+            this.userDataToAdd.clear();
+        }
+
+        // Remove
+        for (int i = 0; i < this.bodiesToRemove.size; i++)
+        {
+            world.destroyBody(this.bodiesToRemove.get(i));
+        }
+        this.bodiesToRemove.clear();
     }
 
 

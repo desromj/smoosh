@@ -24,11 +24,9 @@ public abstract class Bug extends PhysicsObject
     private SpineBugAnimationAsset asset;
 
     protected Enums.AnimationState animationState, previousState;
-
-    protected boolean grounded, jumped, crouched;
+    protected boolean grounded, jumped, crouched, facingRight;
 
     private boolean animationChanged;
-    protected boolean facingRight;
     protected float disableCollisionFor;
     protected Array<AnimationEffect> particles;
 
@@ -152,6 +150,11 @@ public abstract class Bug extends PhysicsObject
         if (this.jumped)
             return;
 
+        if (this.crouched) {
+            this.unCrouch();
+            return;
+        }
+
         this.jumped = true;
 
         if (this.grounded && Gdx.input.isKeyPressed(Input.Keys.DOWN))
@@ -161,12 +164,16 @@ public abstract class Bug extends PhysicsObject
         }
 
         this.body.applyForceToCenter(0f, Constants.SMOOSH_JUMP_IMPULSE, true);
+
     }
 
 
 
     public void crouch()
     {
+        if (this.crouched)
+            return;
+
         this.grounded = true;
         this.crouched = true;
         this.jumped = false;
@@ -176,6 +183,9 @@ public abstract class Bug extends PhysicsObject
 
     public void unCrouch()
     {
+        if (!this.crouched)
+            return;
+
         this.crouched = false;
 
         this.setCrouchCollision(false);

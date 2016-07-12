@@ -174,7 +174,7 @@ public class Smoosh extends Bug
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(
                 this.getPosition().x / Constants.PTM,
-                (this.getPosition().y + Constants.SMOOSH_RADIUS) / Constants.PTM
+                this.getPosition().y / Constants.PTM
         );
         bodyDef.fixedRotation = true;
 
@@ -246,18 +246,30 @@ public class Smoosh extends Bug
     {
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(
-                this.getPosition().x / Constants.PTM,
-                (this.getPosition().y + Constants.SMOOSH_RADIUS) / Constants.PTM
-        );
+
         bodyDef.fixedRotation = true;
 
         PolygonShape shape = new PolygonShape();
 
-        if (this.isCrouched())
+        if (this.isCrouched()) {
             shape.set(Constants.SMOOSH_VERTICIES_CROUCHED);
-        else
+            bodyDef.position.set(
+                    this.body.getPosition().x,
+                    (this.body.getPosition().y -
+                            (Utils.getMaxHeight(Constants.SMOOSH_VERTICIES_NORMAL)
+                                    - Utils.getMaxHeight(Constants.SMOOSH_VERTICIES_CROUCHED))
+                                    / 2.0f)
+            );
+        } else {
             shape.set(Constants.SMOOSH_VERTICIES_NORMAL);
+            bodyDef.position.set(
+                    this.body.getPosition().x,
+                    (this.body.getPosition().y -
+                            (Utils.getMaxHeight(Constants.SMOOSH_VERTICIES_NORMAL)
+                                    - Utils.getMaxHeight(Constants.SMOOSH_VERTICIES_CROUCHED))
+                                    / 2.0f)
+            );
+        }
 
         FixtureDef fixtureDef = new FixtureDef();
 
