@@ -64,28 +64,32 @@ public class Smoosh extends Bug
 
 
 
+    private float getAnimationPlaybackSpeed(Animation anim)
+    {
+        // Running and jumping animation played back at 2x speed
+        if (anim.getName().startsWith("run") || anim.getName().startsWith("jump"))
+            return 2.0f;
+
+        if (anim.getName().startsWith("land"))
+            return 1.8f;
+
+        return 1.0f;
+    }
+
+
+
     @Override
     public void update(float delta)
     {
-        // Double the playback speed of running animations
-        float playbackSpeed = 1.0f;
-
-        for (AnimationState.TrackEntry te = this.getAnimationState().getCurrent(0); te != null; te = te.getNext()) {
-
-            Animation anim = te.getAnimation();
-
-            // Running and jumping animation played back at 2x speed
-            if (anim.getName().startsWith("run") ||anim.getName().startsWith("jump"))
-                playbackSpeed = 2.0f;
-        }
-
+        // Edit playback speed as necessary
+        float playbackSpeed = getAnimationPlaybackSpeed(this.getAnimationState().getCurrent(0).getAnimation());
         this.getAnimationState().getCurrent(0).setTimeScale(playbackSpeed);
 
         // Update parent method
         super.update(delta);
 
         // Switch the prop carrying method on/off with the E key
-        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+        if (this.animationState.allowControl() && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             this.carryingProp = !this.carryingProp;
 
             if (this.carryingProp) {
@@ -99,7 +103,7 @@ public class Smoosh extends Bug
         }
 
         // Check for crouching
-        if (this.grounded && Gdx.input.isKeyJustPressed(Input.Keys.CONTROL_LEFT)) {
+        if (this.animationState.allowControl() && this.grounded && Gdx.input.isKeyJustPressed(Input.Keys.CONTROL_LEFT)) {
             if (this.crouched)
                 this.unCrouch();
             else
@@ -112,6 +116,15 @@ public class Smoosh extends Bug
     @Override
     protected void move()
     {
+        // Prevent movement if our animation doesn't allow it
+        if (!this.animationState.allowControl()) {
+            this.body.setLinearVelocity(
+                    0f,
+                    0f
+            );
+            return;
+        }
+
         // Check left/right movement keys for X velocity
         boolean running = (Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT) || Gdx.input.isKeyPressed(Input.Keys.SHIFT_RIGHT));
 
@@ -212,10 +225,31 @@ public class Smoosh extends Bug
     @Override
     protected Enums.AnimationState nextAnimationState()
     {
-        // Then get the necessary animation state
+        Animation anim = this.getAnimationState().getCurrent(0).getAnimation();
+
+        // Check animation states for if we're -grounded-...
         if (this.grounded)
         {
-            if (this.crouched)
+            // Check if we've landed first
+            if (anim.getName().startsWith("land") && this.getAnimationState().getCurrent(0).isComplete())
+                this.landing = false;
+
+            // Check if we're locked into landing
+            if (this.landing)
+            {
+                if (anim.getName().startsWith("land"))
+                {
+                    if (this.carryingProp)
+                        return Enums.AnimationState.LANDING_WITH_PROP;
+                    else
+                        return Enums.AnimationState.LANDING;
+                }
+
+                // TODO: Verify this works as expected
+                return Enums.AnimationState.LANDING;
+            }
+            // Otherwise, look for crouching
+            else if (this.crouched)
             {
                 if (Math.abs(this.getBody().getLinearVelocity().x * Constants.PTM) > Constants.SMOOSH_IDLE_SPEED_THRESHOLD)
                 {
@@ -232,6 +266,7 @@ public class Smoosh extends Bug
                         return Enums.AnimationState.CROUCHING;
                 }
             }
+            // Otherwise, check speed for running
             else if (Math.abs(this.getBody().getLinearVelocity().x * Constants.PTM) > Constants.SMOOSH_WALK_SPEED_THRESHOLD)
             {
                 if (this.carryingProp)
@@ -239,6 +274,7 @@ public class Smoosh extends Bug
                 else
                     return Enums.AnimationState.RUNNING;
             }
+            // Otherwise, check speed for walking
             else if (Math.abs(this.getBody().getLinearVelocity().x * Constants.PTM) > Constants.SMOOSH_IDLE_SPEED_THRESHOLD)
             {
                 if (this.carryingProp)
@@ -246,6 +282,7 @@ public class Smoosh extends Bug
                 else
                     return Enums.AnimationState.WALKING;
             }
+            // Otherwise, we're idle
             else
             {
                 if (this.carryingProp)
@@ -254,10 +291,9 @@ public class Smoosh extends Bug
                     return Enums.AnimationState.IDLE;
             }
         }
+        // If we are -airborne-...
         else
         {
-            Animation anim = this.getAnimationState().getCurrent(0).getAnimation();
-
             // Check if we're already falling
             if (anim.getName().startsWith("fall"))
             {

@@ -43,6 +43,9 @@ public abstract class PhysicsObject
 
     public void update(float delta)
     {
+        // Update our last position for the next frame
+        this.lastPosition.set(this.position.x, this.position.y);
+
         // Cling this object's position to the physics body
         this.position.set(
                 (this.body.getPosition().x * Constants.PTM) - this.getWidth() / 2.0f,
@@ -54,9 +57,6 @@ public abstract class PhysicsObject
             this.atRest = true;
         else
             this.atRest = false;
-
-        // Update our last position for the next frame
-        this.lastPosition.set(this.position.x, this.position.y);
     }
 
     /*

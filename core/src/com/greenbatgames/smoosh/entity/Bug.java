@@ -24,7 +24,7 @@ public abstract class Bug extends PhysicsObject
     private SpineBugAnimationAsset asset;
 
     protected Enums.AnimationState animationState, previousState;
-    protected boolean grounded, jumped, crouched, facingRight;
+    protected boolean grounded, jumped, crouched, facingRight, landing;
 
     private boolean animationChanged;
     protected float disableCollisionFor;
@@ -37,6 +37,7 @@ public abstract class Bug extends PhysicsObject
         this.jumped = true;
         this.animationChanged = false;
         this.facingRight = true;
+        this.landing = false;
         this.disableCollisionFor = 0.0f;
         this.asset = Assets.instance.makeAsset(this);
         this.animationState = Enums.AnimationState.IDLE;
@@ -141,6 +142,9 @@ public abstract class Bug extends PhysicsObject
         this.grounded = true;
         this.crouched = false;
         this.jumped = false;
+
+        if (previousState.getLabel().startsWith("fall"))
+            this.landing = true;
     }
 
 

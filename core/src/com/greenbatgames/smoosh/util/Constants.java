@@ -62,7 +62,7 @@ public class Constants
 
     // Density values, in kg/m^3 (human average is 985, water is 1020, wood about 650, but varies)
     public static final float SMOOSH_DENSITY = 400.0f;
-    public static final float SMOOSH_JUMP_IMPULSE = 120.0f * SMOOSH_DENSITY;
+    public static final float SMOOSH_JUMP_IMPULSE = 160.0f * SMOOSH_DENSITY;
     public static final float SMOOSH_RADIUS = WORLD_WIDTH / 36.0f;
 
     public static final float SMOOSH_CROUCH_SPEED = 120.0f;
@@ -100,6 +100,7 @@ public class Constants
     /*
         Animation Helper Values
      */
+    public static final float LAND_SPEED_THRESHOLD = SMOOSH_WALK_SPEED / 20000.0f;
     public static final float SMOOSH_IDLE_SPEED_THRESHOLD = 25f;
     public static final float SMOOSH_WALK_SPEED_THRESHOLD = SMOOSH_WALK_SPEED * 2f;
 
