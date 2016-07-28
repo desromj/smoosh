@@ -151,10 +151,22 @@ public class SmooshAssets extends SpineBugAnimationAsset
                 AnimationBlend.makeBlend(Enums.AnimationState.RUNNING_WITH_PROP, Enums.AnimationState.FALLING_WITH_PROP, 0.25f),
 
 
-                AnimationBlend.makeBlend(Enums.AnimationState.JUMPING, Enums.AnimationState.FALLING, 0.25f),
+                AnimationBlend.makeBlend(Enums.AnimationState.JUMPING, Enums.AnimationState.FALLING, 0.1f),
 
 
-                AnimationBlend.makeBlend(Enums.AnimationState.JUMPING_WITH_PROP, Enums.AnimationState.FALLING_WITH_PROP, 0.25f)
+                AnimationBlend.makeBlend(Enums.AnimationState.JUMPING_WITH_PROP, Enums.AnimationState.FALLING_WITH_PROP, 0.1f),
+
+
+                AnimationBlend.makeBlend(Enums.AnimationState.FALLING, Enums.AnimationState.LANDING, 0.1f),
+
+
+                AnimationBlend.makeBlend(Enums.AnimationState.FALLING_WITH_PROP, Enums.AnimationState.LANDING_WITH_PROP, 0.1f),
+
+
+                AnimationBlend.makeBlend(Enums.AnimationState.LANDING, Enums.AnimationState.IDLE, 0.1f),
+
+
+                AnimationBlend.makeBlend(Enums.AnimationState.LANDING_WITH_PROP, Enums.AnimationState.IDLE_WITH_PROP, 0.1f)
         };
     }
 }

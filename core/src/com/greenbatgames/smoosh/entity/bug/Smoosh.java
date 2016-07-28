@@ -71,7 +71,7 @@ public class Smoosh extends Bug
             return 2.0f;
 
         if (anim.getName().startsWith("land"))
-            return 1.8f;
+            return 4.0f;
 
         return 1.0f;
     }
