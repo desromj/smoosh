@@ -122,7 +122,7 @@ public abstract class Bug extends PhysicsObject
         // Render the bug first
         if (this.animationChanged) {
             asset.skeleton.setToSetupPose();
-            asset.setAnimation(0, this.animationState.getLabel(), true);
+            asset.setAnimation(0, this.animationState.getLabel(), this.animationState.isLooped());
             this.animationChanged = false;
         }
 

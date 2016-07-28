@@ -9,12 +9,14 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.greenbatgames.smoosh.entity.Bug;
 import com.greenbatgames.smoosh.screen.GameScreen;
 import com.greenbatgames.smoosh.util.Constants;
 import com.greenbatgames.smoosh.util.Enums;
 import com.greenbatgames.smoosh.util.Utils;
 
+import spine.Animation;
 import spine.AnimationState;
 
 /**
@@ -69,7 +71,11 @@ public class Smoosh extends Bug
         float playbackSpeed = 1.0f;
 
         for (AnimationState.TrackEntry te = this.getAnimationState().getCurrent(0); te != null; te = te.getNext()) {
-            if (te.getAnimation().getName().startsWith("run") || te.getAnimation().getName().startsWith("jump"))
+
+            Animation anim = te.getAnimation();
+
+            // Running and jumping animation played back at 2x speed
+            if (anim.getName().startsWith("run") ||anim.getName().startsWith("jump"))
                 playbackSpeed = 2.0f;
         }
 
@@ -250,7 +256,30 @@ public class Smoosh extends Bug
         }
         else
         {
-            // TODO: Should be falling
+            Animation anim = this.getAnimationState().getCurrent(0).getAnimation();
+
+            // Check if we're already falling
+            if (anim.getName().startsWith("fall"))
+            {
+                if (this.carryingProp)
+                    return Enums.AnimationState.FALLING_WITH_PROP;
+                else
+                    return Enums.AnimationState.FALLING;
+            }
+
+            // Then check if we should be transitioning from the jumping animation
+            if (anim.getName().startsWith("jump"))
+            {
+                if (this.getAnimationState().getCurrent(0).isComplete())
+                {
+                    if (this.carryingProp)
+                        return Enums.AnimationState.FALLING_WITH_PROP;
+                    else
+                        return Enums.AnimationState.FALLING;
+                }
+            }
+
+            // Finally, just jump if the other two don't apply
             if (this.carryingProp)
                 return Enums.AnimationState.JUMPING_WITH_PROP;
             else

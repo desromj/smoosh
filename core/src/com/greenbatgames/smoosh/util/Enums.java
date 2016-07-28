@@ -10,35 +10,42 @@ public class Enums
     // Animation States for Bugs
     public enum AnimationState
     {
-        IDLE("idle"),
-        IDLE_WITH_PROP("idle-with-prop"),
+        IDLE("idle", true),
+        IDLE_WITH_PROP("idle-with-prop", true),
 
-        CROUCHING("crouch"),
-        CROUCHING_WITH_PROP("crouch-with-prop"),
+        CROUCHING("crouch", true),
+        CROUCHING_WITH_PROP("crouch-with-prop", true),
 
-        CRAWLING("crawl"),
-        CRAWLING_WITH_PROP("crawl-with-prop"),
+        CRAWLING("crawl", true),
+        CRAWLING_WITH_PROP("crawl-with-prop", true),
 
-        WALKING("walk"),
-        WALKING_WITH_PROP("walk-with-prop"),
+        WALKING("walk", true),
+        WALKING_WITH_PROP("walk-with-prop", true),
 
-        JUMPING("jump"),
-        JUMPING_WITH_PROP("jump-with-prop"),
+        JUMPING("jump", false),
+        JUMPING_WITH_PROP("jump-with-prop", false),
 
-        RUNNING("run"),
-        RUNNING_WITH_PROP("run-with-prop");
+        FALLING("fall", true),
+        FALLING_WITH_PROP("fall-with-prop", true),
+
+        RUNNING("run", true),
+        RUNNING_WITH_PROP("run-with-prop", true);
 
         private String label;
+        private boolean looped;
 
-        private AnimationState(String label)
+        private AnimationState(String label, boolean looped)
         {
             this.label = label;
+            this.looped = looped;
         }
 
         public String getLabel()
         {
             return this.label;
         }
+
+        public boolean isLooped() { return looped; }
     }
 
 

@@ -76,61 +76,85 @@ public class SmooshAssets extends SpineBugAnimationAsset
     @Override
     public AnimationBlend[] getBlends() {
         return new AnimationBlend [] {
+
                 AnimationBlend.makeBlend(Enums.AnimationState.CRAWLING, Enums.AnimationState.CROUCHING, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.CRAWLING, Enums.AnimationState.WALKING, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.CRAWLING, Enums.AnimationState.RUNNING, 0.50f),
                 AnimationBlend.makeBlend(Enums.AnimationState.CRAWLING, Enums.AnimationState.CRAWLING_WITH_PROP, 0.25f),
+                AnimationBlend.makeBlend(Enums.AnimationState.CRAWLING, Enums.AnimationState.FALLING, 0.25f),
+
 
                 AnimationBlend.makeBlend(Enums.AnimationState.CRAWLING_WITH_PROP, Enums.AnimationState.CROUCHING_WITH_PROP, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.CRAWLING_WITH_PROP, Enums.AnimationState.WALKING_WITH_PROP, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.CRAWLING_WITH_PROP, Enums.AnimationState.RUNNING_WITH_PROP, 0.50f),
                 AnimationBlend.makeBlend(Enums.AnimationState.CRAWLING_WITH_PROP, Enums.AnimationState.CRAWLING, 0.25f),
+                AnimationBlend.makeBlend(Enums.AnimationState.CRAWLING_WITH_PROP, Enums.AnimationState.FALLING_WITH_PROP, 0.25f),
+
 
                 AnimationBlend.makeBlend(Enums.AnimationState.CROUCHING, Enums.AnimationState.IDLE, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.CROUCHING, Enums.AnimationState.CRAWLING, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.CROUCHING, Enums.AnimationState.CROUCHING_WITH_PROP, 0.50f),
+                AnimationBlend.makeBlend(Enums.AnimationState.CROUCHING, Enums.AnimationState.FALLING, 0.25f),
+
 
                 AnimationBlend.makeBlend(Enums.AnimationState.CROUCHING_WITH_PROP, Enums.AnimationState.CROUCHING, 0.50f),
                 AnimationBlend.makeBlend(Enums.AnimationState.CROUCHING_WITH_PROP, Enums.AnimationState.CRAWLING_WITH_PROP, 0.50f),
                 AnimationBlend.makeBlend(Enums.AnimationState.CROUCHING_WITH_PROP, Enums.AnimationState.IDLE_WITH_PROP, 0.25f),
+                AnimationBlend.makeBlend(Enums.AnimationState.CROUCHING_WITH_PROP, Enums.AnimationState.FALLING_WITH_PROP, 0.25f),
+
 
                 AnimationBlend.makeBlend(Enums.AnimationState.IDLE, Enums.AnimationState.WALKING, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.IDLE, Enums.AnimationState.IDLE_WITH_PROP, 0.50f),
                 AnimationBlend.makeBlend(Enums.AnimationState.IDLE, Enums.AnimationState.RUNNING, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.IDLE, Enums.AnimationState.CROUCHING, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.IDLE, Enums.AnimationState.JUMPING, 0.1f),
+                AnimationBlend.makeBlend(Enums.AnimationState.IDLE, Enums.AnimationState.FALLING, 0.25f),
+
 
                 AnimationBlend.makeBlend(Enums.AnimationState.IDLE_WITH_PROP, Enums.AnimationState.IDLE, 0.50f),
                 AnimationBlend.makeBlend(Enums.AnimationState.IDLE_WITH_PROP, Enums.AnimationState.WALKING_WITH_PROP, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.IDLE_WITH_PROP, Enums.AnimationState.RUNNING_WITH_PROP, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.IDLE_WITH_PROP, Enums.AnimationState.CROUCHING_WITH_PROP, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.IDLE_WITH_PROP, Enums.AnimationState.JUMPING_WITH_PROP, 0.1f),
+                AnimationBlend.makeBlend(Enums.AnimationState.IDLE_WITH_PROP, Enums.AnimationState.FALLING_WITH_PROP, 0.25f),
+
 
                 AnimationBlend.makeBlend(Enums.AnimationState.WALKING, Enums.AnimationState.IDLE, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.WALKING, Enums.AnimationState.RUNNING, 0.75f),
                 AnimationBlend.makeBlend(Enums.AnimationState.WALKING, Enums.AnimationState.CRAWLING, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.WALKING, Enums.AnimationState.WALKING_WITH_PROP, 0.50f),
                 AnimationBlend.makeBlend(Enums.AnimationState.WALKING, Enums.AnimationState.JUMPING, 0.1f),
+                AnimationBlend.makeBlend(Enums.AnimationState.WALKING, Enums.AnimationState.FALLING, 0.25f),
+
 
                 AnimationBlend.makeBlend(Enums.AnimationState.WALKING_WITH_PROP, Enums.AnimationState.IDLE_WITH_PROP, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.WALKING_WITH_PROP, Enums.AnimationState.WALKING, 0.50f),
                 AnimationBlend.makeBlend(Enums.AnimationState.WALKING_WITH_PROP, Enums.AnimationState.RUNNING_WITH_PROP, 0.75f),
                 AnimationBlend.makeBlend(Enums.AnimationState.WALKING_WITH_PROP, Enums.AnimationState.CRAWLING_WITH_PROP, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.WALKING_WITH_PROP, Enums.AnimationState.JUMPING_WITH_PROP, 0.1f),
+                AnimationBlend.makeBlend(Enums.AnimationState.WALKING_WITH_PROP, Enums.AnimationState.FALLING_WITH_PROP, 0.25f),
+
 
                 AnimationBlend.makeBlend(Enums.AnimationState.RUNNING, Enums.AnimationState.IDLE, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.RUNNING, Enums.AnimationState.WALKING, 0.75f),
                 AnimationBlend.makeBlend(Enums.AnimationState.RUNNING, Enums.AnimationState.CRAWLING, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.RUNNING, Enums.AnimationState.RUNNING_WITH_PROP, 0.50f),
                 AnimationBlend.makeBlend(Enums.AnimationState.RUNNING, Enums.AnimationState.JUMPING, 0.1f),
+                AnimationBlend.makeBlend(Enums.AnimationState.RUNNING, Enums.AnimationState.FALLING, 0.25f),
+
 
                 AnimationBlend.makeBlend(Enums.AnimationState.RUNNING_WITH_PROP, Enums.AnimationState.RUNNING, 0.50f),
                 AnimationBlend.makeBlend(Enums.AnimationState.RUNNING_WITH_PROP, Enums.AnimationState.WALKING_WITH_PROP, 0.75f),
                 AnimationBlend.makeBlend(Enums.AnimationState.RUNNING_WITH_PROP, Enums.AnimationState.IDLE_WITH_PROP, 0.25f),
                 AnimationBlend.makeBlend(Enums.AnimationState.RUNNING_WITH_PROP, Enums.AnimationState.CRAWLING_WITH_PROP, 0.25f),
-                AnimationBlend.makeBlend(Enums.AnimationState.RUNNING_WITH_PROP, Enums.AnimationState.JUMPING_WITH_PROP, 0.1f)
-                
-                // TODO: JUMPING and JUMPING_WITH_PROP
+                AnimationBlend.makeBlend(Enums.AnimationState.RUNNING_WITH_PROP, Enums.AnimationState.JUMPING_WITH_PROP, 0.1f),
+                AnimationBlend.makeBlend(Enums.AnimationState.RUNNING_WITH_PROP, Enums.AnimationState.FALLING_WITH_PROP, 0.25f),
+
+
+                AnimationBlend.makeBlend(Enums.AnimationState.JUMPING, Enums.AnimationState.FALLING, 0.25f),
+
+
+                AnimationBlend.makeBlend(Enums.AnimationState.JUMPING_WITH_PROP, Enums.AnimationState.FALLING_WITH_PROP, 0.25f)
         };
     }
 }
