@@ -69,7 +69,7 @@ public class Smoosh extends Bug
         float playbackSpeed = 1.0f;
 
         for (AnimationState.TrackEntry te = this.getAnimationState().getCurrent(0); te != null; te = te.getNext()) {
-            if (te.getAnimation().getName().startsWith("run"))
+            if (te.getAnimation().getName().startsWith("run") || te.getAnimation().getName().startsWith("jump"))
                 playbackSpeed = 2.0f;
         }
 
@@ -251,7 +251,10 @@ public class Smoosh extends Bug
         else
         {
             // TODO: Should be falling
-            return Enums.AnimationState.IDLE;
+            if (this.carryingProp)
+                return Enums.AnimationState.JUMPING_WITH_PROP;
+            else
+                return Enums.AnimationState.JUMPING;
         }
     }
 

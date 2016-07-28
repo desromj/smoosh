@@ -22,6 +22,9 @@ public class Enums
         WALKING("walk"),
         WALKING_WITH_PROP("walk-with-prop"),
 
+        JUMPING("jump"),
+        JUMPING_WITH_PROP("jump-with-prop"),
+
         RUNNING("run"),
         RUNNING_WITH_PROP("run-with-prop");
 

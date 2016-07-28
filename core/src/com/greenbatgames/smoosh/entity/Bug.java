@@ -147,24 +147,28 @@ public abstract class Bug extends PhysicsObject
 
     public void jump()
     {
+        // cannot jump if we already jumped
         if (this.jumped)
             return;
 
+        // Cannot jump if crouched - stand up instead
         if (this.crouched) {
             this.unCrouch();
             return;
         }
 
-        this.jumped = true;
-
+        // If jumping down through a platform, disable collision and return
         if (this.grounded && Gdx.input.isKeyPressed(Input.Keys.DOWN))
         {
             this.disableCollisionFor = Constants.DISABLE_COLLISION_FOR_PLATFORM;
             return;
         }
 
-        this.body.applyForceToCenter(0f, Constants.SMOOSH_JUMP_IMPULSE, true);
+        // Otherwise, proceed with jump
+        this.jumped = true;
+        this.grounded = false;
 
+        this.body.applyForceToCenter(0f, Constants.SMOOSH_JUMP_IMPULSE, true);
     }
 
 
@@ -181,6 +185,8 @@ public abstract class Bug extends PhysicsObject
         this.setCrouchCollision(true);
     }
 
+
+
     public void unCrouch()
     {
         if (!this.crouched)
@@ -190,6 +196,8 @@ public abstract class Bug extends PhysicsObject
 
         this.setCrouchCollision(false);
     }
+
+
 
 
     /*
