@@ -207,6 +207,15 @@ public abstract class Bug extends PhysicsObject
     /*
         Getters and Setters
      */
+
+    // TODO: Collision for bugs here, to determine animation and grounded states
+    public final boolean isGrounded(Array<PhysicsObject> objects, float radium)
+    {
+
+
+        return false;
+    }
+
     public Vector2 getPosition() { return this.position; }
     public Vector2 getLastPosition() { return this.lastPosition; }
     public boolean isCrouched() { return this.crouched; }
